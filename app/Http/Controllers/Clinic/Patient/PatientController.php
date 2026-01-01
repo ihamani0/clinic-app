@@ -59,18 +59,18 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        $patient->load([
-                'teeth' => fn ($q) =>
-                    $q->select(
-                        'id',
-                        'patient_id',
-                        'tooth_number',
-                        'status',
-                        'note'
-                    )->orderBy('tooth_number'),
-                'treatments' => fn ($q) =>
-                    $q->latest()->limit(50),
+        // 1. Eager load everything in one go to prevent N+1 queries
+            $patient->load([
+                'teeth' => fn($q) => $q->orderBy('tooth_number'),
+                'treatments.steps.treatment', // Nested eager loading
+                'treatments.teeth',
+                'payments.step.treatment'
             ]);
+        // 2. Get unpaid steps efficiently from the loaded treatments
+            // We use flatMap to get all steps from all treatments, then filter
+            $unpaidSteps = $patient->treatments->flatMap->steps->where('is_paid', 0)->where('status', 'done');
+
+         
 
         return Inertia::render('Clinic/Patients/show-patient', [
                 
@@ -84,37 +84,45 @@ class PatientController extends Controller
                     'email' => $patient->email,
                     'address' => $patient->address,
 
-                    // ✅ aggregate children
-                    'teeth' => $patient->teeth->map(fn ($tooth) => [
-                        'number' => $tooth->tooth_number,
-                        'status' => $tooth->status,
-                        'note' => $tooth->note,
-                    ]),
+                    //finance
+                    'finance' => [
+                            'totalCost' => $patient->totalCostForPatient(),
+                            'paid' => $patient->totalPaidForPatient(),
+                            'remaining' => $patient->totalDueForPatient(),
+                            'payments' => $patient->payments, // Already loaded above
+                            'unpaidSteps' => $unpaidSteps->values(), // Pass this to your React component!
+                        ],
 
-                    'treatments' => $patient->treatments->map(fn ($t) => [
-                        'id' => $t->id,
-                        'title' => $t->title,
-                        'description' => $t->description,
-                        'status' => $t->status,
-                        'paid'=> $t->paid,
-                        'remaining'=> $t->remainingAmount(),
-                        'price' => $t->price,
-                        'created_at' => $t->created_at->toDateString(),
-                        'steps'=> $t->steps->map(fn($step) => [
-                            'id' => $step->id,
-                            'title' => $step->title,
-                            'cost' => $step->cost,
-                            'note' => $step->note,
-                            'status' => $step->status,
-                        ]),
+                    'teeth' => $patient->teeth,
 
-                        // Adding teeth info
-                        'teeth' => $t->teeth->map(fn($tooth)=>[
-                            'id' => $tooth->id,
-                            'tooth_number' => $tooth->tooth_number,
-                        ])
-                    ])
-                ]
+                    'treatments' => $patient->treatments->map(fn($t) => [
+                                    'id' => $t->id,
+                                    'title' => $t->title,
+                                    'description' => $t->description,
+                                    'price' => $t->price,
+                                    'paid' => $t->paid,
+                                    'status' => $t->status,
+                                    'remaining' => $t->remainingAmount(),
+                                    'created_at' => $t->created_at->toDateString(),
+                                    'steps' => $t->steps->map(fn($step) => [
+                                        'id' => $step->id,
+                                        'title' => $step->title,
+                                        'status'=> $step->status,
+                                        'cost' => $step->cost,
+                                        'is_paid' => $step->is_paid, // Helpful for the UI
+                                        'treatment' => [
+                                            'id' => $step->treatment->id,
+                                            'title' => $step->treatment->title,
+                                        ]
+                                    ]),
+
+                                // Adding teeth info
+                                'teeth' => $t->teeth->map(fn($tooth)=>[
+                                    'id' => $tooth->id,
+                                    'tooth_number' => $tooth->tooth_number,
+                                ])
+                            ])
+                ] // end array
             
             ]);
 

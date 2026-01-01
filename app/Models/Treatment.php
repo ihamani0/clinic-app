@@ -33,6 +33,11 @@ class Treatment extends Model
         return $this->hasMany(TreatmentStep::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(PaymentTreatment::class);
+    }
+
 
     //helper function 
     public function calculateTotalCost(){
@@ -42,18 +47,18 @@ class Treatment extends Model
         return $total;
     }
 
-
-    // paid amount me make it dynamic
-    // public function calculatePaidAmount(){
-    //     $paidAmount = $this->steps()->where('status' , 'done')->sum('cost');
-    //     $this->paid = $paidAmount;
-    //     $this->save();
-    //     return $paidAmount;
-    // }
+    public function TotalCostForTreatments(){
+         return $this->steps()->sum('cost');
+    }
+    public function paidAmount(): float
+    {
+        return $this->payments()->sum('amount');
+    }
 
 
     public function remainingAmount(){
-        return $this->price - $this->paid;
+        // return $this->price - $this->paid;
+        return  $this->calculateTotalCost() - $this->paidAmount();
     }
 
     public function reCalculateStatus(){

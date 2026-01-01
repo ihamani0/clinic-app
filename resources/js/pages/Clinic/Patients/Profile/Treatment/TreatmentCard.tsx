@@ -9,7 +9,7 @@ import EditTreatmentModal from "./EditTreatmentModal"
 
 export default function TreatmentCard({ treatment ,patientId }: { treatment: treatment, patientId:number }) {
 
-  console.log("treatment", treatment);
+   
 
   const canEdit =
     treatment.status !== "completed" &&

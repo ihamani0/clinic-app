@@ -104,6 +104,7 @@ export type TreatmentStep = {
     status: "pending" | "done" | "skipped";
     cost: number;
     note?: string;
+    treatment?:treatment
 };
 
 export interface teeth {
@@ -124,6 +125,23 @@ export interface treatment {
     price ?: number;
 }
 
+export interface Payment {
+    id : string ;
+    amount : number ; 
+    method : string ; 
+    paid_at : number ; 
+    step : TreatmentStep;
+}
+
+export interface Finance {
+    totalCost : number;
+    paid : number ;
+    remaining : number ;
+    payments : Payment[]
+    unpaidSteps :TreatmentStep[];
+}
+// {totalCost , paid , remaining}
+
 export interface Patient {
     id: string ;
     full_name?: string;
@@ -138,6 +156,7 @@ export interface Patient {
     medical_alert?: string;
     teeth : Tooth[];
     treatments ?: treatment[];
+    finance :Finance
 }
 
 export interface Category {

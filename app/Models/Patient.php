@@ -44,5 +44,25 @@ class Patient extends Model
         return $this->hasMany(Treatment::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(PaymentTreatment::class);
+    }
+
+    // public function 
+
+    public function totalCostForPatient(){
+        return $this->treatments->sum(fn ($t) => $t->TotalCostForTreatments());
+    }
+
+    public function totalDueForPatient(): float
+    {
+        return $this->treatments->sum(fn ($t) => $t->remainingAmount());
+    }
+
+    public function totalPaidForPatient(): float
+    {
+        return $this->payments()->sum('amount');
+    }
 
 }

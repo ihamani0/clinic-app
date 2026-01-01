@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_traetments', function (Blueprint $table) {
+        Schema::create('payment_treatments', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('treatment_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('treatment_step_id')->nullable()->constrained()->cascadeOnDelete();
 
             $table->decimal('amount', 10, 2);
 
             $table->enum('method', ['cash', 'credit_card', 'insurance', 'other']);
-
+            
+             $table->text('note')->nullable();
             $table->date('paid_at');
             $table->timestamps();
         });

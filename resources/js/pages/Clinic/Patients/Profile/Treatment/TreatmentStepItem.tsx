@@ -22,7 +22,7 @@ export function TreatmentStepItem({
       }).url,
       {},
       { preserveScroll: true }
-    )
+    );
   }
 
   return (

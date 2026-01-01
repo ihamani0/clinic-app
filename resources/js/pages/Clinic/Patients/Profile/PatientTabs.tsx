@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import React from 'react'
 import Odontogram from '../Odontogram/odontogram'
-import FinanceSummary from './FinanceSummary'
+import FinanceSummary from './Finance/FinanceSummary'
 import TreatmentTimeline from './Treatment/TreatmentTimeline'
 import { Patient } from '@/types'
 import TreatmentModal from './Treatment/TreatmentModal'
@@ -34,7 +34,7 @@ export default function PatientTabs({patient } : Props) {
         </TabsContent>
 
         <TabsContent value="finance">
-            <FinanceSummary />
+            <FinanceSummary finance={patient.finance} unpaidSteps={patient.finance.unpaidSteps} />
         </TabsContent>
     </Tabs>
 

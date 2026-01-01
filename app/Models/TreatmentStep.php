@@ -16,10 +16,19 @@ class TreatmentStep extends Model
         'note'
     ];
 
+    protected $casts = [
+        'is_paid' => 'boolean',
+    ];
 
     public function treatment()
     {
         return $this->belongsTo(Treatment::class);
+    }
+
+
+    public function payments()
+    {
+        return $this->hasMany(PaymentTreatment::class);
     }
 
     public function isDone(){
