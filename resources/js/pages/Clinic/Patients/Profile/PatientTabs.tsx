@@ -1,42 +1,61 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import React from 'react'
-import Odontogram from '../Odontogram/odontogram'
-import FinanceSummary from './Finance/FinanceSummary'
-import TreatmentTimeline from './Treatment/TreatmentTimeline'
-import { Patient } from '@/types'
-import TreatmentModal from './Treatment/TreatmentModal'
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React from "react";
+import Odontogram from "../Odontogram/odontogram";
+import FinanceSummary from "./Finance/FinanceSummary";
+import TreatmentTimeline from "./Treatment/TreatmentTimeline";
+import { Patient } from "@/types";
+import TreatmentModal from "./Treatment/TreatmentModal";
+import Attachments from "./Attachments/Attachments";
 
 type Props = {
-    patient : Patient,
-}
+  patient: Patient;
+};
 //<Odontogram  patient_id={Number(patient.id)} teeth={teeth}
-export default function PatientTabs({patient } : Props) {
+export default function PatientTabs({ patient }: Props) {
   return (
     <Tabs defaultValue="chart">
-        <TabsList>
-            <TabsTrigger value="chart">Dental Chart</TabsTrigger>
-            <TabsTrigger value="treatments"  >Treatments</TabsTrigger>
-            <TabsTrigger value="finance">Finance</TabsTrigger>
-        </TabsList>
+      <TabsList className="w-full">
+        <TabsTrigger className="flex-1 text-center" value="chart">
+          Dental Chart
+        </TabsTrigger>
+        <TabsTrigger className="flex-1 text-center" value="treatments">
+          Treatments
+        </TabsTrigger>
+        <TabsTrigger className="flex-1 text-center" value="finance">
+          Finance
+        </TabsTrigger>
+        <TabsTrigger className="flex-1 text-center" value="attachments">
+          Attachments
+        </TabsTrigger>
+      </TabsList>
 
-        <TabsContent value="chart">
-            <Odontogram patient_id={Number(patient.id)} teeth={patient.teeth}  />
-        </TabsContent>
+      <TabsContent value="chart">
+        <Odontogram patient_id={Number(patient.id)} teeth={patient.teeth} />
+      </TabsContent>
 
-        <TabsContent value="treatments">
-            <div className='space-y-4 flex flex-col mt-2 '>
-                <div className='self-end'>
-                    <TreatmentModal patientId={String(patient.id)} />
-                </div>
-                <TreatmentTimeline treatments={patient.treatments ?? []} patientId={Number(patient.id)} />
-            </div>
-        </TabsContent>
+      <TabsContent value="treatments">
+        <div className="space-y-4 flex flex-col mt-2 ">
+          <div className="self-end">
+            <TreatmentModal patientId={String(patient.id)} />
+          </div>
+          <TreatmentTimeline
+            treatments={patient.treatments ?? []}
+            patientId={Number(patient.id)}
+          />
+        </div>
+      </TabsContent>
 
-        <TabsContent value="finance">
-            <FinanceSummary finance={patient.finance} unpaidSteps={patient.finance.unpaidSteps} />
-        </TabsContent>
+      <TabsContent value="finance">
+        <FinanceSummary
+          finance={patient.finance}
+          unpaidSteps={patient.finance.unpaidSteps}
+        />
+      </TabsContent>
+
+      <TabsContent value="attachments">
+        {/* Lazy load Attachments component */}
+        <Attachments patient={patient} />
+      </TabsContent>
     </Tabs>
-
-  )
+  );
 }

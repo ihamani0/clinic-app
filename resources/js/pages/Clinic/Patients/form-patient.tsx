@@ -12,6 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 
 type PatientForm = {
   first_name: string
@@ -21,6 +22,7 @@ type PatientForm = {
   dob: string
   email : string
   address : string
+  photo : File | null
 }
 
 type Props = {
@@ -49,6 +51,7 @@ function FormPatient({patient , method , action} : Props) {
         dob: patient?.dob || "",
         email: patient?.email || "",
         gender: patient?.gender || "",
+        photo: null,
   })
 
   const [clientErrors, setClientErrors] = useState<Record<string, string>>({})
@@ -66,22 +69,26 @@ function FormPatient({patient , method , action} : Props) {
   return Object.keys(errors).length === 0
 }
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (!validate()) return
+  if (!validate()) return;
 
-    form[method](action, {
+  // Transform allows you to add/modify data just before the request
+  form.transform((data) => ({
+      ...data,
+      _method: method === "put" ? "put" : "post",
+    }))
+
+  form.post(action, {
+      forceFormData: true, 
       preserveScroll: true,
-      onError: () => {
-        // keep form open, just show errors
-      },
       onSuccess: () => {
-        form.reset()
-        setDobDate(undefined)
+        form.reset();
+        setDobDate(undefined);
       },
-    })
-  }
+    });
+};
 
   return (
     <form onSubmit={submit} className="mt-6 px-4 space-y-4">
@@ -232,7 +239,19 @@ function FormPatient({patient , method , action} : Props) {
                 form.setData("address", value)
             }}
         />
+
+
+        {/* Photo Profile  */}
  
+        <div className="w-full flex flex-col">
+            <Label className="mb-2">Profile Photo</Label>
+            <Input
+                      type="file"
+                      onChange={e =>
+                        form.setData('photo', e.target.files?.[0] || null)
+                      }
+                    />
+        </div>
 
 
 

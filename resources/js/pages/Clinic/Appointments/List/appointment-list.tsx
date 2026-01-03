@@ -4,7 +4,6 @@ import { dashboard } from "@/routes";
 import clinic from "@/routes/clinic";
 import { Appointment, BreadcrumbItem, User } from "@/types";
 import {Tabs,TabsContent,TabsList,TabsTrigger,} from "@/components/ui/tabs"
-
 import { useCallback, useMemo, useState } from "react";
 import { router } from "@inertiajs/react";
 import AppointmentSkeleton from "./appointment-skeleton";
@@ -161,6 +160,7 @@ breadcrumbs={breadcrumbs}
                     <TabsTrigger value="today">Today</TabsTrigger>
                     <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
                     <TabsTrigger value="completed">Completed</TabsTrigger>
+                    <TabsTrigger value="past">Past</TabsTrigger>
                     <TabsTrigger value="archived">Archived</TabsTrigger>
                 </TabsList>
 
@@ -190,6 +190,18 @@ breadcrumbs={breadcrumbs}
                 </TabsContent>
 
                 <TabsContent value="completed">
+
+                        {loading ? (
+                            <>
+                                <AppointmentSkeleton />
+                                <AppointmentSkeleton />
+                                <AppointmentSkeleton />
+                            </>
+                            ) : (
+                            <AppointmentTab filtered={filtered} />
+                        )}
+                </TabsContent>
+                <TabsContent value="past">
 
                         {loading ? (
                             <>

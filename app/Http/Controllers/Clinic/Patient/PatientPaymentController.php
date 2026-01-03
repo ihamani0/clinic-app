@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clinic\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use App\Models\PaymentTreatment;
 use App\Models\TreatmentStep;
 use Illuminate\Http\Request;
@@ -11,8 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class PatientPaymentController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, Patient $patient)
     {
+         
+
         $data = $request->validate([
             'treatment_step_id' => 'required|exists:treatment_steps,id',
             'method' => 'required|in:cash,card,transfer',
@@ -35,7 +38,11 @@ class PatientPaymentController extends Controller
                 'created_by' => Auth::user()->id ,
             ]);
 
-            $step->update(['is_paid' => true]);
+            $step->is_paid = true;
+            $step->save();
+
+
+
         });
 
         return back()->with('success', 'Payment recorded successfully');

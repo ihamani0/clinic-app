@@ -22,7 +22,8 @@ return new class extends Migration
 
             $table->enum('method', ['cash', 'credit_card', 'insurance', 'other']);
             
-             $table->text('note')->nullable();
+            $table->text('note')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->date('paid_at');
             $table->timestamps();
         });
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_traetments');
+        Schema::dropIfExists('payment_treatments');
     }
 };

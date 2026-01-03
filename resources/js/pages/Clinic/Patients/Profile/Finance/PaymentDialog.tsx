@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import clinic from "@/routes/clinic"
 import { TreatmentStep } from "@/types"
 import { useForm } from "@inertiajs/react"
 
@@ -13,6 +14,7 @@ type Props = {
 export default function PaymentDialog({ step ,  onClose }: Props) {
   const form = useForm({
     method: 'cash',
+    treatment_step_id: step.id
   })
 
   const submit = () => {
@@ -20,6 +22,10 @@ export default function PaymentDialog({ step ,  onClose }: Props) {
     //   data: { treatment_step_id: step.id },
     //   onSuccess: onClose,
     // })
+    form.post(clinic.patient.finances.payments.store().url ,
+    {
+      onSuccess : () => onClose()
+    });
   }
 
   return (

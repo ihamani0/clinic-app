@@ -86,11 +86,6 @@ class TreatmentController extends Controller
 
             $treatmentStep->save();
 
-
-            // 🔄 Sync
-            $treatment->reCalculateStatus();
-            $treatment->calculateTotalCost();
-
             return back();
     }
 
@@ -176,8 +171,7 @@ class TreatmentController extends Controller
 
             }  // endforeach
 
-            $treatment->calculateTotalCost();
-            $treatment->reCalculateStatus();
+
             }catch(\Exception $e){dd($e->getMessage());}
 
         });

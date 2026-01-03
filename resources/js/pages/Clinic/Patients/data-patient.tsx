@@ -1,30 +1,28 @@
  
 import { Button } from "@/components/ui/button";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { Eye } from "lucide-react";
- 
-import { Badge } from "@/components/ui/badge";
- 
 import clinic from "@/routes/clinic";
 import { Patient } from "@/types";
 import EditPatietn from "./edit-patietn";
+import DeleteAlertDialog from "@/components/delete-alert-dialoge";
  
 
-function getBadgeVariant(state : number ){
-    if(state > 0) {
-        return "destructive"
-    }else if (state < 0){
-        return "success"
-    }else {
-        return "default"
-    }
-}
+
 type Props = {
   patients: Patient[]
 }
 
 function DataPatient({patients} : Props) {
+
+  const handelDelete = (id : number) => {
+     router.delete(clinic.patient.destroy({patient:id}).url , {
+      preserveScroll:true,
+     })
+  }
+
+
   return (
     <Table>
       <TableHeader>
@@ -32,7 +30,7 @@ function DataPatient({patients} : Props) {
           <TableHead>Name</TableHead>
           <TableHead>Phone</TableHead>
           <TableHead>Gender</TableHead>
-          <TableHead>Balance</TableHead>
+          <TableHead>BirthDay</TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -45,17 +43,11 @@ function DataPatient({patients} : Props) {
             <TableCell>{p.phone}</TableCell>
             <TableCell className="capitalize">{p.gender}</TableCell>
             <TableCell className="">
-             {p.balance ? (
-                <Badge variant={getBadgeVariant(p.balance ?? 0)}>
-                  {p.balance ?? "-"}
-              </Badge>
-             ):('-')}
-
-               
+              {new Date(p.dob).toLocaleDateString()}
             </TableCell>
             <TableCell className="text-right space-x-2">
                 {/* Show Patient */}
-              <Link href={clinic.patient.show(p.id).url} >
+              <Link href={clinic.patient.show(Number(p.id)).url} >
                 <Button
                   variant="outline"
                   size="sm"
@@ -66,6 +58,8 @@ function DataPatient({patients} : Props) {
 
             {/* Edit Patient */}
               <EditPatietn  patient={p}  />
+
+              <DeleteAlertDialog onApply={() => handelDelete(Number(p.id))} />
             </TableCell>
 
 

@@ -35,6 +35,10 @@ class AppointmentListController extends Controller {
 
                     $query->where('status', 'completed');
 
+                }elseif ($tab === 'past') { 
+                    // Option A: Appointments that happened before today (not deleted)
+                    $query->whereDate('start', '<', Carbon::today());
+
                 } elseif ($tab === 'archived') {
                     $query->onlyTrashed();
                 }

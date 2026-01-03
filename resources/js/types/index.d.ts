@@ -29,6 +29,7 @@ export interface FiltersQuery  {
         date_from ?: string ,
         date_to ?: string
         per_page?:string
+        dob ?: string
     }
 
 
@@ -104,6 +105,7 @@ export type TreatmentStep = {
     status: "pending" | "done" | "skipped";
     cost: number;
     note?: string;
+    is_paid : boolean ;
     treatment?:treatment
 };
 
@@ -129,8 +131,9 @@ export interface Payment {
     id : string ;
     amount : number ; 
     method : string ; 
-    paid_at : number ; 
+    paid_at : string ; 
     step : TreatmentStep;
+    creator: User | null ;
 }
 
 export interface Finance {
@@ -142,6 +145,18 @@ export interface Finance {
 }
 // {totalCost , paid , remaining}
 
+export interface MediaItem {
+  id: number;
+  file_name: string;
+  mime_type: string;
+  original_url: string;
+}
+
+export interface media{
+    xrays : MediaItem[];
+    reports : MediaItem[];
+    photos : MediaItem[];
+}
 export interface Patient {
     id: string ;
     full_name?: string;
@@ -150,6 +165,7 @@ export interface Patient {
     phone : string;
     email : string ;
     address:string;
+    photo ?: string;
     gender: 'male' | 'female' | '';
     dob:string;
     balance?: number,
@@ -157,6 +173,7 @@ export interface Patient {
     teeth : Tooth[];
     treatments ?: treatment[];
     finance :Finance
+    media : media;
 }
 
 export interface Category {

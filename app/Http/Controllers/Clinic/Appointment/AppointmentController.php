@@ -192,9 +192,6 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment){
 
 
-         
-         
-        
         $validated = $request->validate([
             'doctor_id' => 'required|exists:users,id',
             'appointment_type_id' => 'required|exists:appointment_types,id',
@@ -219,6 +216,7 @@ class AppointmentController extends Controller
             'duration' => $validated['duration'],
             'end' => $end->format('Y-m-d H:i:s'),
             'note' => $validated['note'] ?? null,
+            'status' => $appointment->status,
             // status stays as-is
         ]);
 

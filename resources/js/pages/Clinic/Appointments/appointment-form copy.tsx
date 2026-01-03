@@ -54,9 +54,6 @@ export default function AppointmentFormCopy({
 
         const d = new Date(initialData.start);
 
-        
- 
-
         return {
             date: d,
             hour: d.getHours().toString().padStart(2, '0'),

@@ -48,25 +48,25 @@ export function TreatmentStepItem({
         </div>
       </div>
 
-      {step.status !== "done" && (
+      {step.status !== "done" && step.is_paid === false && (
         <Button size="sm" onClick={markDone} className="cursor-pointer">
           <CheckCircle/>  Mark done
         </Button>
       )}
 
-      {/* {step.status == "done" && (
-
-      )} */}
-      {step.status === "done" && (
-        <div className="flex items-center gap-2">
+ 
+      {step.status === "done" && step.is_paid === false && (
           <Button size="icon" className="cursor-pointer" variant={"ghost"} onClick={markDone}>
             <XCircle />
           </Button>
-          <Badge variant="secondary" className="text-xs">
-            <LockKeyhole />
-          </Badge>
-        </div>
       )}
+
+      {step.status === "done" && step.is_paid === true && (
+        <Badge variant="secondary" className="text-xs">
+            <LockKeyhole />
+        </Badge>
+      )}
+
 
     </div>
   )

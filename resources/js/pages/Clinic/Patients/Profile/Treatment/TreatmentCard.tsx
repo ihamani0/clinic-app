@@ -24,7 +24,10 @@ export default function TreatmentCard({ treatment ,patientId }: { treatment: tre
   // const remaining = treatment.total_cost - treatment.paid
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card className={cn(
+  "relative overflow-hidden border-slate-200 bg-slate-50/50 dark:bg-slate-900/50 transition-colors hover:bg-slate-50", 
+  treatment.status === "completed" && "bg-green-50/30 dark:bg-green-950/10" // Optional: slight tint if done
+)}>
 
       {/* Status bar */}
       <div className={cn(

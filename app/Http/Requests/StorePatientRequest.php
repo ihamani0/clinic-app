@@ -39,6 +39,7 @@ class StorePatientRequest extends FormRequest
             'dob' => 'nullable',
             'address' => 'nullable|string|min:5|max:255',
             'gender' => 'required|in:male,female',
+            'photo' => 'nullable|image|max:4096',
         ];
     }
 }

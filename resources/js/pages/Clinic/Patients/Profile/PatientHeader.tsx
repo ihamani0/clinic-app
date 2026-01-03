@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Phone, AlertTriangle } from "lucide-react";
+import {   Phone, AlertTriangle } from "lucide-react";
 import { calculateAge } from "@/lib/utils";
 import { Patient } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,14 +21,25 @@ export default function PatientHeader({ patient } : Props) {
         {/* Identity */}
         <div className="flex items-center gap-4">
           
-              <Avatar className="size-16  ">
-              <AvatarImage
-                src="https://github.com/evilrabbit.png"
-                alt="@evilrabbit"
-                 
-              />
-              <AvatarFallback>ER</AvatarFallback>
-            </Avatar>
+        <Avatar className="w-32 h-32 border-2 border-muted shadow-sm">
+          {patient.photo ? (
+            <>
+              <AvatarImage src={patient.photo} alt={patient.first_name} />
+              <AvatarFallback>
+              {patient.first_name[0]}
+              {patient.last_name[0]}
+            </AvatarFallback>
+          </>
+          ) : (
+            <AvatarImage 
+              /* Check gender to display the correct default icon */
+              src={patient.gender === 'male' ? '/icons/man-avatar.png' : '/icons/woman-avatar.png'} 
+              alt="Default Avatar"
+            />
+          )}
+          {/*  */}
+        </Avatar>
+
           
 
           <div>

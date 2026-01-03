@@ -18,25 +18,44 @@ export function NewPaymentSection({ steps }: { steps: TreatmentStep[] }) {
         </CardHeader>
 
         <CardContent className="space-y-2">
-          {steps.map(step => (
-            <div
-              key={step.id}
-              className="flex justify-between items-center border rounded-lg p-3"
-            >
-              <div>
-                <p className="font-medium">{step.title}</p>
-                <p className="text-xs text-muted-foreground">
-                  {step?.treatment?.title || "-"}
-                </p>
-              </div>
+          {steps.map((group, index) => (
+            <Card key={index} className="overflow-hidden">
+              <CardHeader className="bg-muted/50 py-3">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-sm uppercase tracking-wider text-muted-foreground">
+                    {group.treatment_title}
+                  </CardTitle>
+                  <span className="text-sm font-bold text-primary">
+                    Total Due: {group.total_treatment_due} DA
+                  </span>
+                </div>
+              </CardHeader>
 
-              <div className="flex items-center gap-4">
-                <span className="font-semibold">{step.cost} DA</span>
-                <Button size="sm" onClick={() => setSelectedStep(step)}>
-                  Pay
-                </Button>
-              </div>
-            </div>
+              <CardContent className="p-0">
+                <div className="divide-y">
+                  {group.steps.map((step) => (
+                    <div
+                      key={step.id}
+                      className="flex justify-between items-center p-4 hover:bg-accent/5 transition-colors"
+                    >
+                      <div>
+                        <p className="font-medium text-sm">{step.title}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Status: {step.status}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <span className="font-mono font-semibold">{step.cost} DA</span>
+                        <Button size="sm" onClick={() => setSelectedStep(step)}>
+                          Pay
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+        </Card>
           ))}
         </CardContent>
       </Card>

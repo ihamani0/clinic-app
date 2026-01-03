@@ -13,7 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Calendar, CalendarDays, CalendarPlus, LayoutGrid, Trash, UserPlus, Users } from 'lucide-react';
+import { Archive, Calendar, CalendarDays, CalendarPlus, LayoutGrid,  Users } from 'lucide-react';
 import AppLogo from './app-logo';
 import clinic from '@/routes/clinic';
 
@@ -56,14 +56,9 @@ const PatientsNavItems: NavItem[] = [
     },
 
     {
-        title: 'Add Patient',
-        href: clinic.patient.create().url,
-        icon: UserPlus,
-    },
-    {
         title: 'Archived Patients',
-        href: clinic.patient.index().url,
-        icon: Trash,
+        href: clinic.patient.archive().url,
+        icon: Archive,
     },
 ];
 

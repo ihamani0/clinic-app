@@ -30,7 +30,7 @@ class Treatment extends Model
 
     public function steps()
     {
-        return $this->hasMany(TreatmentStep::class);
+        return $this->hasMany(TreatmentStep::class)->orderBy('step_order', 'asc');
     }
 
     public function payments()
@@ -40,26 +40,37 @@ class Treatment extends Model
 
 
     //helper function 
-    public function calculateTotalCost(){
-        $total = $this->steps()->sum('cost');
-        $this->price = $total;
-        $this->save();
-        return $total;
+    // public function calculateTotalCost(){
+
+    //     return $this->steps()->sum('cost');
+    // }
+
+    // public function calculateTotalPaid(){
+
+    //     return $this->payments()->sum('amount');
+    // }
+
+    // public function remainingAmount(){
+    //     // return $this->price - $this->paid;
+    //     return  $this->calculateTotalCost() - $this->calculateTotalPaid();
+    // }
+
+    public function getTotalCostAttribute()
+    {
+        // Use the relationship sum directly
+        return $this->steps()->sum('cost');
     }
 
-    public function TotalCostForTreatments(){
-         return $this->steps()->sum('cost');
-    }
-    public function paidAmount(): float
+    public function getTotalPaidAttribute()
     {
         return $this->payments()->sum('amount');
     }
 
-
-    public function remainingAmount(){
-        // return $this->price - $this->paid;
-        return  $this->calculateTotalCost() - $this->paidAmount();
+    public function getRemainingAmountAttribute()
+    {
+        return $this->total_cost - $this->total_paid;
     }
+
 
     public function reCalculateStatus(){
         $totalSteps = $this->steps()->count();

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Clinic\Appointment\AppointmentController;
 use App\Http\Controllers\Clinic\Appointment\AppointmentListController;
 use App\Http\Controllers\Clinic\Patient\PatientController;
+use App\Http\Controllers\Clinic\Patient\PatientMediaController;
+use App\Http\Controllers\Clinic\Patient\PatientPaymentController;
 use App\Http\Controllers\Clinic\Patient\PatientToothController;
 use App\Http\Controllers\Clinic\Patient\TreatmentController;
 use Illuminate\Support\Facades\Route;
@@ -48,40 +50,70 @@ Route::middleware(['auth', 'verified'])->prefix('clinic')->name('clinic.')->grou
 
     Route::resource('patient' , PatientController::class);
 
+
+
+    Route::get('/archive/patient', [PatientController::class, 'archive_index'])
+        ->name('patient.archive');
+
+    Route::post('/archive/patient/restore/{patient}', [PatientController::class, 'archive_restore'])
+        ->name('patient.archive.restore')->withTrashed();
+
+    Route::delete('/archive/patient/force-delete/{patient}', [PatientController::class, 'forceDelete'])
+    ->name('patient.archive.forceDelete')->withTrashed();
+
+
+
+
     // Tooth
 
     Route::prefix('patients/{patient}')->group(function () {
 
-        Route::get('/teeth', [PatientToothController::class, 'index'])
-            ->name('patient.teeth');
+            Route::get('/teeth', [PatientToothController::class, 'index'])
+                ->name('patient.teeth');
 
-        Route::post('/teeth/batch', [PatientToothController::class, 'updateBatch'])
-            ->name('patient.teeth.updateBatch');
+            Route::post('/teeth/batch', [PatientToothController::class, 'updateBatch'])
+                ->name('patient.teeth.updateBatch');
 
-        Route::post('/teeth/single', [PatientToothController::class, 'updateSingle'])
-            ->name('patient.teeth.updateSingle');
-
-
-        // Traitments
-        Route::post('/treatments', [TreatmentController::class, 'store'])
-            ->name('patient.treatments.store');
-        // Traitments update
-        Route::put('/treatments/{treatment}' ,[TreatmentController::class, 'update'])
-            ->name('patient.treatments.update');
-
-        Route::post('/treatments/{treatmentStep}/done', [TreatmentController::class, 'markDone'])
-            ->name('patient.treatments.markDone');
+            Route::post('/teeth/single', [PatientToothController::class, 'updateSingle'])
+                ->name('patient.teeth.updateSingle');
 
 
-        Route::post('/treatments/{treatment}/complete', [TreatmentController::class, 'complete'])       
-            ->name('patient.treatments.complete');
+            // Traitments
+            Route::post('/treatments', [TreatmentController::class, 'store'])
+                ->name('patient.treatments.store');
+            // Traitments update
+            Route::put('/treatments/{treatment}' ,[TreatmentController::class, 'update'])
+                ->name('patient.treatments.update');
 
-        Route::post('/treatments/{treatment}/cancel', [TreatmentController::class, 'cancel'])
-            ->name('patient.treatments.cancel');
+            Route::post('/treatments/{treatmentStep}/done', [TreatmentController::class, 'markDone'])
+                ->name('patient.treatments.markDone');
 
-        });
 
-    
+            Route::post('/treatments/{treatment}/complete', [TreatmentController::class, 'complete'])       
+                ->name('patient.treatments.complete');
+
+            Route::post('/treatments/{treatment}/cancel', [TreatmentController::class, 'cancel'])
+                ->name('patient.treatments.cancel');
+
+        //Media
+            Route::post('/upload', [PatientMediaController::class, 'store'])
+                ->name('patient.media.store');
+
+
+        Route::delete('/media/{media}', [PatientMediaController::class, 'destroy'])
+            ->name('patient.media.delete');
+
+
+        }); // finish prefix 
+
+        
+
+
+
+        Route::post('/finances/payments', [PatientPaymentController::class, 'store'])
+            ->name('patient.finances.payments.store');
+
+ 
 
 
 });
