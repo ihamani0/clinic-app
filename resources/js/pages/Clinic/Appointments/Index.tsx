@@ -4,7 +4,7 @@ import { dashboard } from "@/routes";
 import { BreadcrumbItem } from "@/types";
 import {  useForm } from "@inertiajs/react";
 import axios from 'axios';
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent,  useEffect,  useState } from "react";
 import frLocale from '@fullcalendar/core/locales/fr';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -34,6 +34,7 @@ import { Spinner } from "@/components/ui/spinner";
 import clinic from "@/routes/clinic";
 import { Label } from "@/components/ui/label";
 import AppointmentEventDialog from "./AppointmentEventDialog";
+import { PatientSelector } from "./calander/PatientSelector";
 
 
 
@@ -51,10 +52,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 // Types
 type Doctor = { id: string; full_name: string };
-type Patient = { id: number | string; first_name: string; last_name: string };
+type Patient = { id: number | string; first_name: string; last_name: string ; dob: string };
 type Category = { id: number | string; name: string; color: string; types: { id: number | string; name: string }[] };
 type Event = {
-
         id: string;
         title: string;
         start: string;
@@ -63,9 +63,7 @@ type Event = {
         borderColor: string;
         resourceId: string;
         creator:  string;
-
         extendedProps: { patient_id: string | number; type_id: string | number };
-
 };
 
 interface AppointmentFormData {
@@ -116,29 +114,21 @@ export default function Index({doctors,  patients, categories}: PageProps) {
 
 
 
-    //const { flash }  =  usePage<FalshProps>().props ;
-    //    useEffect(()=>{
-    //     if(flash.success){
-    //         toast.success(flash.success)
-    //     }
 
-    //     if(flash.error){
-    //         toast.error(flash.error)
-    //     }
-    // } , [flash])
-
-
-    const calendarRef = useRef(null);
+    // const calendarRef = useRef(null);
 
 
     const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
     const [isPatientModalOpen, setIsPatientModalOpen] = useState(false);
 
+    //newlyCreatedPatient={justCreatedPatient}
+    const [ justCreatedPatient , setJustCreatedPatient] = useState<Patient | null>(null);
 
-    //list patient
+
+
     const [patientsList , setPatientsList] = useState<Patient[]>(patients);
 
-    //state for new patient form
+    const [birthdayFilter, setBirthdayFilter] = useState("");
 
 
     const patientForm = useForm<PatientFormData>({
@@ -152,7 +142,7 @@ export default function Index({doctors,  patients, categories}: PageProps) {
     })
 
     // Form handling
-    const { data, setData, post, processing, errors, reset , transform} = useForm<AppointmentFormData>({
+    const { data, setData, post, processing, errors, reset } = useForm<AppointmentFormData>({
             patient_id: '',
             doctor_id:'',
             appointment_type_id: '',
@@ -166,6 +156,14 @@ export default function Index({doctors,  patients, categories}: PageProps) {
     // HANDLE SLOT CLICK
     // ---------------------------------------------
     const handleDateClick = (arg : DateClickArg) => {
+        const now = new Date();
+        const clickedDate = arg.date;
+
+        // 🚫 Prevent creating appointment in the past
+        if (clickedDate < now) {
+            toast.info("You cannot create an appointment in the past")
+            return // ⛔ STOP here
+        }
         setData('start', arg.dateStr); // Set start time
         setData('doctor_id', arg.resource ? arg.resource.id : '');
 
@@ -222,7 +220,7 @@ export default function Index({doctors,  patients, categories}: PageProps) {
                 setIsAppointmentModalOpen(false);
                 reset();
             } ,
-            onError : (errors) =>{
+            onError : () =>{
                 toast.error('retry Again!!');
             }
         });
@@ -245,14 +243,12 @@ export default function Index({doctors,  patients, categories}: PageProps) {
 
     const handleEventClick = (clickInfo : EventClickArg)=>{
 
-        const event = clickInfo.event;
+        const event = clickInfo.event
+        const data = event.extendedProps as AppointmentExtendedProps
+ 
+        setSelectedEvent(data)
 
-        const data = event.extendedProps as AppointmentExtendedProps;
-
-        console.log(data);
-        setSelectedEvent(data);
-
-        setOpenEventDialog(true);
+        setOpenEventDialog(true)
     }
 
 
@@ -319,168 +315,175 @@ export default function Index({doctors,  patients, categories}: PageProps) {
 
             <Dialog open={isAppointmentModalOpen} onOpenChange={setIsAppointmentModalOpen}>
                 <DialogContent className="max-w-3xl p-6" style={{maxWidth : "768px"}}>
-            <DialogHeader>
-                <DialogTitle className="text-xl font-semibold flex items-center gap-2">
-                <CalendarCheck /> Create Appointment
-                </DialogTitle>
-            </DialogHeader>
+                <DialogHeader>
+                    <DialogTitle className="text-xl font-semibold flex items-center gap-2">
+                    <CalendarCheck /> Create Appointment
+                    </DialogTitle>
+                </DialogHeader>
 
             <form onSubmit={handleSubmit} className="space-y-6">
 
                 {/* SECTION */}
+               
                 <div className="p-4 border rounded-xl bg-muted/30">
-                <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
-                    <UserIcon /> Patient Information
-                </h3>
+                            <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
+                                <UserIcon className="w-4 h-4" /> Patient Information
+                            </h3>
 
-                 {errors.duration  && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4 flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4" />
-                        <span className="text-sm font-medium">{errors.duration}</span>
-                    </div>
-                    )}
-                {errors.start  && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4 flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4" />
-                        <span className="text-sm font-medium">{errors.start}</span>
-                    </div>
-                    )}
+                            {errors.duration  && (
+                                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4 flex items-center gap-2">
+                                    <AlertCircle className="w-4 h-4" />
+                                    <span className="text-sm font-medium">{errors.duration}</span>
+                                </div>
+                                )}
+                            {errors.start  && (
+                                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4 flex items-center gap-2">
+                                    <AlertCircle className="w-4 h-4" />
+                                    <span className="text-sm font-medium">{errors.start}</span>
+                                </div>
+                                )}
+                            
+                            <div className="space-y-4">
+                                <PatientSelector
+                                    birthday={birthdayFilter}
+                                    onBirthdayChange={setBirthdayFilter} 
+                                    value={data.patient_id} 
+                                    onSelect={(id) => setData("patient_id", id)}
+                                    error={errors.patient_id}
+                                    newlyCreatedPatient={justCreatedPatient}
+                                />
 
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                    {/* SELECT PATIENT */}
-                    <div className="flex flex-col justify-center space-y-4">
-                        <Select onValueChange={(val) => setData("patient_id", val)} value={data.patient_id}>
-                        <SelectTrigger className="flex items-center gap-2">
-                            <UserRoundSearch className="w-4 h-4 text-muted-foreground" />
-                            <SelectValue placeholder="Select patient" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {patientsList.map((p) => (
-                            <SelectItem key={p.id} value={p.id.toString()}>
-                                {p.first_name} {p.last_name}
-                            </SelectItem>
-                            ))}
-                        </SelectContent>
-                        </Select>
-
-                        {errors.patient_id && <p className="text-sm text-red-500 mt-1">{errors.patient_id}</p>}
-                        </div>
-
-                    <Button type="button" variant="destructive" className="cursor-pointer" onClick={() => setIsPatientModalOpen(true)}>
-                        <PlusCircle className="w-4 h-4"/> Add New Patient
-                    </Button>
+                                <div className="flex justify-center">
+                                    <Button 
+                                        type="button" 
+                                        variant="outline" 
+                                        size="sm"
+                                        className="text-xs" 
+                                        onClick={() => setIsPatientModalOpen(true)}
+                                    >
+                                        <PlusCircle className="w-3 h-3 mr-1"/> Not in list? Add New Patient
+                                    </Button>
+                                </div>
+                            </div>
                 </div>
-                </div>
+                            
+
+
+                    
+
+            
+                
 
 
                 {/* SECTION */}
                 <div className="p-4 border rounded-xl bg-muted/30">
-                <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
-                    <LayoutList /> Appointment Type
-                </h3>
+                        <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
+                            <LayoutList /> Appointment Type
+                        </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                    {/* CATEGORY */}
-                    <div>
-                        <Select onValueChange={(val) => setSelectedCategory(val)} value={selectedCategory || ''}>
-                            <SelectTrigger className="flex items-center gap-2">
-                                <Tags className="w-4 h-4 text-muted-foreground" />
-                                <SelectValue placeholder="Select category" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {categories.map((cat) => (
-                                <SelectItem key={cat.id} value={cat.id.toString()}>
-                                    {cat.name}
-                                </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
+                            {/* CATEGORY */}
+                            <div>
+                                <Select onValueChange={(val) => setSelectedCategory(val)} value={selectedCategory || ''}>
+                                    <SelectTrigger className="flex items-center gap-2">
+                                        <Tags className="w-4 h-4 text-muted-foreground" />
+                                        <SelectValue placeholder="Select category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {categories.map((cat) => (
+                                        <SelectItem key={cat.id} value={cat.id.toString()}>
+                                            {cat.name}
+                                        </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
 
-                    {/* TYPE */}
-                    <div className="flex flex-col justify-center space-y-4">
-                        <Select
-                        disabled={!selectedCategory}
-                        value={data.appointment_type_id}
-                        onValueChange={(val) => setData("appointment_type_id", val)}
-                        >
-                        <SelectTrigger className="flex item-center gap-2">
-                            <ClipboardList className="w-4 h-4 text-muted-foreground"/>
-                            <SelectValue placeholder="Select treatment" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {availableTypes?.map((t) => (
-                            <SelectItem key={t.id} value={t.id.toString()}>
-                                {t.name}
-                            </SelectItem>
-                            ))}
-                        </SelectContent>
-                        </Select>
-                        {errors.appointment_type_id && <p className="text-sm text-red-500 mt-1">{errors.appointment_type_id}</p>}
+                            {/* TYPE */}
+                            <div className="flex flex-col justify-center space-y-4">
+                                <Select
+                                disabled={!selectedCategory}
+                                value={data.appointment_type_id}
+                                onValueChange={(val) => setData("appointment_type_id", val)}
+                                >
+                                <SelectTrigger className="flex item-center gap-2">
+                                    <ClipboardList className="w-4 h-4 text-muted-foreground"/>
+                                    <SelectValue placeholder="Select treatment" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {availableTypes?.map((t) => (
+                                    <SelectItem key={t.id} value={t.id.toString()}>
+                                        {t.name}
+                                    </SelectItem>
+                                    ))}
+                                </SelectContent>
+                                </Select>
+                                {errors.appointment_type_id && <p className="text-sm text-red-500 mt-1">{errors.appointment_type_id}</p>}
 
-                    </div>
+                            </div>
+                        </div>
                 </div>
-                </div>
 
 
-    {/* SECTION */}
-    <div className="p-4 border rounded-xl bg-muted/30">
-      <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
-        <Clock /> Schedule
-      </h3>
+                        {/* SECTION */}
+                        <div className="p-4 border rounded-xl bg-muted/30">
+                        <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
+                            <Clock /> Schedule
+                        </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input value={formatDateTime(data.start)} disabled />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Input value={formatDateTime(data.start)} disabled />
 
-        <Select
-            value={data.duration.toString()}
-            onValueChange={(val) => setData('duration', parseInt(val))}
-        >
-            <SelectTrigger>
-            <SelectValue placeholder="Duration" />
-            </SelectTrigger>
-            <SelectContent>
-            <SelectItem value="15">15 min</SelectItem>
-            <SelectItem value="30">30 min</SelectItem>
-            <SelectItem value="60">1 hour</SelectItem>
-            <SelectItem value="90">1.5 hours</SelectItem>
-            <SelectItem value="120">2 hours</SelectItem>
-            </SelectContent>
-        </Select>
-        </div>
-    </div>
+                            <Select
+                                value={data.duration.toString()}
+                                onValueChange={(val) => setData('duration', parseInt(val))}
+                            >
+                                <SelectTrigger>
+                                <SelectValue placeholder="Duration" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                <SelectItem value="15">15 min</SelectItem>
+                                <SelectItem value="30">30 min</SelectItem>
+                                <SelectItem value="60">1 hour</SelectItem>
+                                <SelectItem value="90">1.5 hours</SelectItem>
+                                <SelectItem value="120">2 hours</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            </div>
+                        </div>
 
-    <div className="p-4 border rounded-xl bg-muted/30">
-        <div className="text-sm text-muted-foreground mt-2">
-            <Clock className="inline w-4 h-4 mr-1" />
-            Ends at: <span className="font-medium">{calculateEndTime(data.start, data.duration)}</span>
-        </div>
-    </div>
+                        <div className="p-4 border rounded-xl bg-muted/30">
+                            <div className="text-sm text-muted-foreground mt-2">
+                                <Clock className="inline w-4 h-4 mr-1" />
+                                Ends at: <span className="font-medium">{calculateEndTime(data.start, data.duration)}</span>
+                            </div>
+                        </div>
 
-    <div className="mt-4">
-        <label className="text-sm font-medium">Notes (optional)</label>
-        <textarea
-        className="w-full p-2 border rounded-md mt-1"
-        rows={3}
-        placeholder="Additional notes..."
-        value={data.note}
-        onChange={(e) => setData('note', e.target.value)}
-        />
-        {errors.note && <p className="text-sm text-red-500 mt-1">{errors.note}</p>}
-    </div>
+                        <div className="mt-4">
+                            <label className="text-sm font-medium">Notes (optional)</label>
+                            <textarea
+                            className="w-full p-2 border rounded-md mt-1"
+                            rows={3}
+                            placeholder="Additional notes..."
+                            value={data.note}
+                            onChange={(e) => setData('note', e.target.value)}
+                            />
+                            {errors.note && <p className="text-sm text-red-500 mt-1">{errors.note}</p>}
+                        </div>
 
 
-    <DialogFooter>
-      <Button type="submit" className="w-full md:w-auto">
-        <CalendarPlus/> Create Appointment
-      </Button>
-    </DialogFooter>
-  </form>
-</DialogContent>
+                        <DialogFooter>
+                        <Button type="submit" className="w-full md:w-auto">
+                            <CalendarPlus/> Create Appointment
+                        </Button>
+                        </DialogFooter>
+                    </form>
+                    </DialogContent>
             </Dialog>
+
+
+
 
             <Dialog open={isPatientModalOpen} onOpenChange={setIsPatientModalOpen}>
                 <DialogContent className="max-w-3xl p-6" style={{maxWidth : "768px"}}>
@@ -502,12 +505,23 @@ export default function Index({doctors,  patients, categories}: PageProps) {
                             onSuccess: (page) => {
 
                                 const { newPatient } = page.props.flash as { newPatient: Patient };
-
+                                 
                                 if (newPatient) {
-                                    console.log(newPatient);
-                                    setPatientsList(prev => [...prev, newPatient]);
+                                
+
+                                    // Step A: Set the birthday filter to the new patient's birthday
+                                     // This triggers the useEffect inside PatientSelector to fetch the list
+                                    setBirthdayFilter(newPatient.dob);
+                                    
+                                    
+                                    setJustCreatedPatient(newPatient);
+
+                                    // Step B: Update patients list to include the new patient
+                                    // setPatientsList(prev => [...prev, newPatient]);
                                     setData('patient_id', newPatient.id.toString());
                                     setIsPatientModalOpen(false);
+                                    patientForm.reset();
+                                    toast.success("Patient created and selected!");
                                 }
                             }
                         });
@@ -535,7 +549,7 @@ export default function Index({doctors,  patients, categories}: PageProps) {
                                 {/* Gender */}
                                 <Select
                                     value={patientForm.data.gender}
-                                    onValueChange={(v) => patientForm.setData('gender',  v )}
+                                    onValueChange={(v) => patientForm.setData('gender',  v as 'male'|'female' )}
                                 >
                                 <SelectTrigger>
                                     <VenusAndMars className="w-4 h-4"/>

@@ -1,280 +1,336 @@
-import { AppCategory, Appointment, DateTimeValue, User } from "@/types"
-import { Link, useForm } from "@inertiajs/react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useState } from "react"
-import { SelectValue } from "@radix-ui/react-select"
-import { Label } from "@/components/ui/label"
-import { ClipboardList, Tags, X } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
-import BoxColor from "@/components/ui/box-color"
-import DateTimePicker from "@/components/date-time-picker"
-import { DURATIONS } from "@/constants"
-import clinic from "@/routes/clinic"
-import { toast } from "sonner"
+import DateTimePicker from '@/components/date-time-picker';
+import BoxColor from '@/components/ui/box-color';
+import { Button } from '@/components/ui/button';
+// import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import { DURATIONS } from '@/constants';
+import clinic from '@/routes/clinic';
+import { AppCategory, Appointment, AppointmentFormData, DateTimeValue, User , Patient} from '@/types';
+import { Link, useForm } from '@inertiajs/react';
+import { ClipboardList, Stethoscope, Tags, UserCircle2, UserCog2} from 'lucide-react';
+import { useMemo, useState  } from 'react';
 
-
-
-function toLocalDateTime(value: DateTimeValue) {
-  if (!value.date) return null
-
-  const d = new Date(value.date)
-
-  const year = d.getFullYear()
-  const month = String(d.getMonth() + 1).padStart(2, "0")
-  const day = String(d.getDate()).padStart(2, "0")
-
-  const hour = value.hour
-  const minute = value.minute
-
-  return `${year}-${month}-${day} ${hour}:${minute}:00`
+function toLocalDateTime(value: DateTimeValue)  {
+    if (!value.date) return null;
+    const date = new Date(value.date);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${value.hour}:${value.minute}:00`;
 }
 
 
-
+ 
 type Props = {
-    appointment : Appointment
-    doctors : User[]
-    categories : AppCategory[]
-}
+    appointment ?: Appointment;
+    initialData: AppointmentFormData;
+    doctors: User[];
+    categories: AppCategory[];
+    onSubmit: (form: ReturnType<typeof useForm<AppointmentFormData>>) => void;
+    submitLabel?: string;
+    patients?: Patient[];
+};
 
+export default function AppointmentFormCopy({
+    appointment,
+    initialData,
+    doctors,
+    categories,
+    onSubmit,
+    submitLabel,
+    patients
+}: Props) {
+    const [startAt, setStartAt] = useState<DateTimeValue>(() => {
 
+        if (!initialData.start) {
+            return { date: undefined, hour: '09', minute: '00' };
+        }
 
-export default function AppointmentForm({appointment, doctors, categories} : Props) {
-
-
-    const [startAt, setStartAt] = useState<DateTimeValue>(() =>{
-
-        const date = new Date(appointment.start);
+        const d = new Date(initialData.start);
 
         return {
-            date,
-            hour: date.getHours().toString().padStart(2, "0"),
-            minute: date.getMinutes().toString().padStart(2, "0"),
-        }
-    })
+            date: d,
+            hour: d.getHours().toString().padStart(2, '0'),
+            minute: d.getMinutes().toString().padStart(2, '0'),
+        };
+    });
 
-  
+    const form = useForm<AppointmentFormData>(initialData);
+    const { data, setData, processing, errors, transform } = form;
 
+    const [selectedCategory, setSelectedCategory] = useState<string | null>();
 
-
-    const { data, setData, put ,  processing, errors , transform } = useForm({
-        doctor_id: appointment.doctor.id,
-        category_id: appointment.type.category.id,
-        appointment_type_id: appointment.type.id,
-        duration : appointment.duration ?? 30,
-        status: appointment.status,
-        note: appointment.note ?? "",
-    })
-
+    // Wrap in useMemo
+    const availableTypes = useMemo(() => {
+        return selectedCategory
+            ? categories.find((c) => String(c.id) === selectedCategory)?.types ?? []
+            : [];
+    }, [selectedCategory, categories]);
 
 
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(data.category_id);
-    
-    const availableTypes = selectedCategory
-        ? categories.find(c => String(c.id) === selectedCategory)?.types ?? []
-        : [];
 
-
-      transform((data) => ({
-          ...data,
-          start: toLocalDateTime(startAt),
-      }))
-
-    const submit = (e) => {
+    const submit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        put(clinic.appointments.update(appointment.id).url , {
-          onSuccess : ()=>{
-            toast.success('update The Appoitments Successfully')
-          }
-        });
-    }
+        transform((data) => ({
+        ...data,
+        start: toLocalDateTime(startAt),
+         }));
+
+        onSubmit(form);
+    };
+
+    return (
+        <form onSubmit={submit}>
+            <div className="mb-2 grid grid-cols-2 gap-4">
+                {/* Doctor */}
+
+                
+                <div className="flex flex-col space-y-2">
+                    <Label className="text-sm font-semibold">Doctor</Label>
+                    <Select
+                        value={String(data.doctor_id)}
+                        onValueChange={(v) => setData('doctor_id', v)}
+                    >
+                        <SelectTrigger>
+                            <Stethoscope className="h-4 w-4 text-muted-foreground" />
+                            <SelectValue title="select Doctor" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {doctors.map((doc) => (
+                                <SelectItem key={doc.id} value={String(doc.id)}>
+                                    {doc.color && <BoxColor color={doc.color} /> } 
+                                    {doc.name}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
 
 
+                {appointment && (
 
-  return (
-    <form onSubmit={submit}>
+                    <div className="flex flex-col space-y-2">
+
+                    <Label className="flex items-center gap-x-2 text-sm">
+                         <UserCog2 />
+                        <span className="text-muted-foreground">
+                            create by -{' '}
+                        </span>
+                        <span className="font-bold">
+                            {appointment.creator?.name || "-"}
+                        </span>
+                    </Label> 
+                </div>
+                )}
 
 
-        <div className="gap-4 grid grid-cols-2 mb-2">
+                {
+                    patients && (
+                        <div className="flex flex-col space-y-2">
+                            <Label className="text-sm font-semibold">Patient</Label>
+                            <Select
+                                value={String(data.patient_id)}
+                                onValueChange={(v) => setData('patient_id', v)}
+                            >
+                                <SelectTrigger>
+                                    <UserCircle2 className="h-4 w-4 text-muted-foreground" />
+                                    <SelectValue title="select Doctor" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {patients.map((patient) => (
+                                        <SelectItem key={patient.id} value={String(patient.id)}>
+                                            {patient.first_name} {patient.last_name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    )
+                }
 
-          {/* Doctor */}
-          
-          <div className="flex flex-col space-y-2  ">
-            <Label className="text-sm font-semibold">Doctor</Label>
-            <Select
-              value={String(data.doctor_id)}
-              onValueChange={(v) => setData("doctor_id", v)}
-            >
-              <SelectTrigger>
-                <Tags className="w-4 h-4 text-muted-foreground" />
-                <SelectValue title="select Doctor" />
-              </SelectTrigger>
-              <SelectContent>
-                {doctors.map((doc) => (
-                    <SelectItem key={doc.id} value={String(doc.id)}>
-                    {doc.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col space-y-2 justify-center">
-                <Label>Created By :</Label>
-                <Input value={appointment.creator.name} disabled/>
-          </div>
-
-        </div>
-
-        <Separator   />
-
-        {/* Category */}
-
-        <div className="gap-4 grid grid-cols-2 my-2">
-
-          
-
-            <div className="flex flex-col space-y-2 ">
-                <Label className="text-sm   flex items-center gap-x-2">
-                    <BoxColor color={appointment.type?.category.color} /> 
-                    <span className="text-muted-foreground">Category  - </span>
-                    <span className="font-bold">{appointment.type?.category.name}</span>
-                </Label>
-
-                <Select onValueChange={(val) => setSelectedCategory(val)} value={selectedCategory || ''}>
-                    <SelectTrigger className="flex items-center gap-2">
-                        <Tags className="w-4 h-4 text-muted-foreground" />
-                        <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {categories.map((cat) => (
-                        <SelectItem key={cat.id} value={cat.id.toString()}>
-                            {cat.name}
-                        </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+ 
             </div>
 
-          {/* Appointment Type */}
+            <Separator />
 
-            <div  className="flex flex-col space-y-2 "> 
-                <Label className="text-sm">
-                    <span className="text-muted-foreground">Appointment Type - </span>
-                    <span className="font-bold">{appointment.type?.name}</span>
+            {/* Category */}
+
+            <div className="my-2 grid grid-cols-2 gap-4">
+                <div className="flex flex-col space-y-2">
+                    
+                    {appointment ? (
+                        <Label className="flex items-center gap-x-2 text-sm">
+                            <BoxColor color={appointment.type?.category.color} />
+                            <span className="text-muted-foreground">
+                                Category -{' '}
+                            </span>
+                            <span className="font-bold">
+                                {appointment.type?.category.name}
+                            </span>
+                        </Label>
+                    ) : (
+                        <Label>Category</Label>
+                    )}
+                    
+
+                    <Select
+                        onValueChange={(val) => setSelectedCategory(val)}
+                        value={selectedCategory || ''}
+                    >
+                        <SelectTrigger className="flex items-center gap-2">
+                            <Tags className="h-4 w-4 text-muted-foreground" />
+                            <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {categories.map((cat) => (
+                                <SelectItem
+                                    key={cat.id}
+                                    value={cat.id.toString()}
+                                >
+                                    {cat.name}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                {/* Appointment Type */}
+
+                <div className="flex flex-col space-y-2">
+
+                    {appointment ? (
+                        <Label className="text-sm">
+                            <span className="text-muted-foreground">
+                                Appointment Type -{' '}
+                            </span>
+                            <span className="font-bold">
+                                {appointment.type?.name}
+                            </span>
+                        </Label>
+                    ) : (
+                        <Label>Appointment Type</Label>
+                    )}
+
+                    <Select
+                        value={data.appointment_type_id}
+                        onValueChange={(val) =>
+                            setData('appointment_type_id', val)
+                        }
+                    >
+                        <SelectTrigger className="item-center flex gap-2">
+                            <ClipboardList className="h-4 w-4 text-muted-foreground" />
+                            <SelectValue title="Select treatment" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {availableTypes?.map((t) => (
+                                <SelectItem key={t.id} value={t.id.toString()}>
+                                    {t.name}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    {errors.appointment_type_id && (
+                        <p className="mt-1 text-sm text-red-500">
+                            {errors.appointment_type_id}
+                        </p>
+                    )}
+                </div>
+            </div>
+
+            <Separator />
+
+            {/* Time */}
+
+            <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2">
+                
+                <DateTimePicker
+                    label="Start Time"
+                    value={startAt}
+                    onChange={setStartAt}
+                />
+
+                <div className="flex flex-col space-y-2">
+                    <Label className="text-sm">Duration</Label>
+                    <Select
+                        value={String(data.duration)}
+                        onValueChange={(v) => setData('duration', Number(v))}
+                    >
+                        <SelectTrigger>
+                            <SelectValue title="Duration" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {DURATIONS.map((d) => (
+                                <SelectItem key={d} value={String(d)}>
+                                    {d} min
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
+
+
+            {/* Status */}
+            {appointment && (
+                <div className="my-3">
+                    <Label className="flex items-center gap-x-2 text-sm font-semibold">
+                        <Tags /> Status
                     </Label>
-                <Select
-                value={data.appointment_type_id}
-                onValueChange={(val) => setData("appointment_type_id", val)}
-                >
-                <SelectTrigger className="flex item-center gap-2">
-                    <ClipboardList className="w-4 h-4 text-muted-foreground"/>
-                    <SelectValue title="Select treatment" />
-                </SelectTrigger>
-                <SelectContent>
-                    {availableTypes?.map((t) => (
-                    <SelectItem key={t.id} value={t.id.toString()}>
-                        {t.name}
-                    </SelectItem>
-                    ))}
-                </SelectContent>
-                </Select>
-                {errors.appointment_type_id && <p className="text-sm text-red-500 mt-1">{errors.appointment_type_id}</p>}
+                    <Select
+                        value={data.status}
+                        onValueChange={(v) => setData('status', v)}
+                    >
+                        <SelectTrigger>
+                            <SelectValue title="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="scheduled">Scheduled</SelectItem>
+                            <SelectItem value="confirmed">Confirmed</SelectItem>
+                            <SelectItem value="seated">Seated</SelectItem>
+                            <SelectItem value="completed">Completed</SelectItem>
+                            <SelectItem value="cancelled">Cancelled</SelectItem>
+                            <SelectItem value="missed">Missed</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            )}
 
+            {/* Notes */}
+
+            <div>
+                <Label className="text-sm font-semibold">Notes</Label>
+                <Textarea
+                    value={data.note}
+                    onChange={(e) => setData('note', e.target.value)}
+                />
             </div>
-        </div>
 
-        <Separator />
+            {/* Actions */}
 
-          {/* Time */}
-        
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-            
-            <DateTimePicker
-              label="Start Time"
-              value={startAt}
-              onChange={setStartAt}
-            />
+            <div className="mt-3 flex justify-end gap-3">
 
-
-            <div className="flex flex-col space-y-2 ">
-                <Label className="text-sm ">
-                    Duration
-                </Label>
-                <Select
-                  value={String(data.duration)}
-                  onValueChange={(v) => setData('duration' , v)}
+                
+                <Link
+                    href={ appointment ? clinic.appointments.show({appointment: Number(appointment.id)}).url :  clinic.appointments.index().url
+                    }
                 >
-                  <SelectTrigger>
-                    <SelectValue title="Duration" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {DURATIONS.map((d) => (
-                      <SelectItem key={d} value={String(d)}>
-                        {d} min
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+                    <Button variant="outline" type="button">
+                        
+                        Cancel
+                    </Button>
+                </Link>
 
-
-
-          </div>
-
-        
-
-          {/* Status */}
-          <div className="my-3">
-            <Label className="text-sm font-semibold flex items-center gap-x-2"><Tags /> Status</Label>
-            <Select
-              value={data.status}
-              onValueChange={(v) => setData("status", v)}
-            >
-              <SelectTrigger>
-                <SelectValue title="Select status" />
-              </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="scheduled">Scheduled</SelectItem>
-                    <SelectItem value="confirmed">Confirmed</SelectItem>
-                    <SelectItem value="seated">Seated</SelectItem>
-                    <SelectItem value="completed">Completed</SelectItem>
-                    <SelectItem value="cancelled">Cancelled</SelectItem>
-                    <SelectItem value="missed">Missed</SelectItem>
-                </SelectContent>
-            </Select>
-          </div>
-
-          {/* Notes */}
-         
-          <div>
-            <Label className="text-sm font-semibold">Notes</Label>
-            <Textarea
-              value={data.note}
-              onChange={(e) => setData("note", e.target.value)}
-            />
-          </div>
-
-          {/* Actions */}
-
-
-          <div className="flex justify-end gap-3 mt-3">
-            <Link href={clinic.appointments.show({appointment :appointment.id }).url}>
-              <Button variant="destructive" type="button">
-                <X />
-                Cancel
-              </Button>
-            </Link>
-            <Button disabled={processing} type="submit">
-              Update Appointment
-            </Button>
-          </div> 
-
-
-    </form>
-  )
+                <Button disabled={processing} type="submit">
+                    {processing ? '... loading' : submitLabel}
+                </Button>
+            </div>
+        </form>
+    );
 }

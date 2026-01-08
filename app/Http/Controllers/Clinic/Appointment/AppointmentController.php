@@ -129,6 +129,11 @@ class AppointmentController extends Controller
             'created_by' => auth()->id(),
         ]);
 
+        //Save Provider for each Patient From First Appoitment 
+        if($appointment->patient->primary_provider_id === null){
+            $appointment->patient->update("primary_provider_id", $validated['doctor_id']);
+        }
+
         return redirect()->route('clinic.appointments.index')->with('success', 'Appointment created successfully.');
     }
 
@@ -222,5 +227,31 @@ class AppointmentController extends Controller
 
         return redirect()->route('clinic.appointments.show' , $appointment->id )
          ->with('success', 'Appointment updated successfully.');
+    }
+
+
+    public function byBirthday(Request $request)
+    {
+        $date = $request->query('birthday');
+
+        if (!$date) {
+            return response()->json(['error' => 'Date parameter is required.'], 400);
+        }
+
+        try {
+            $parsedDate = Carbon::parse($date);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Invalid date format.'], 400);
+        }
+
+        $month = $parsedDate->month;
+        $day = $parsedDate->day;
+
+        $patients = Patient::whereMonth('dob', $month)
+            ->whereDay('dob', $day)
+            ->orderBy('first_name')
+            ->get();
+
+        return response()->json($patients);
     }
 }

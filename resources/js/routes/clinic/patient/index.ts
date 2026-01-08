@@ -5,6 +5,87 @@ import treatments from './treatments'
 import media from './media'
 import finances from './finances'
 /**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+export const byBirthday = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: byBirthday.url(options),
+    method: 'get',
+})
+
+byBirthday.definition = {
+    methods: ["get","head"],
+    url: '/clinic/patients/by-birthday',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthday.url = (options?: RouteQueryOptions) => {
+    return byBirthday.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthday.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: byBirthday.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthday.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: byBirthday.url(options),
+    method: 'head',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+const byBirthdayForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: byBirthday.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthdayForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: byBirthday.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthdayForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: byBirthday.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+byBirthday.form = byBirthdayForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::index
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:19
 * @route '/clinic/patient'
@@ -812,6 +893,7 @@ teethForm.head = (args: { patient: number | { id: number } } | [patient: number 
 teeth.form = teethForm
 
 const patient = {
+    byBirthday: Object.assign(byBirthday, byBirthday),
     index: Object.assign(index, index),
     create: Object.assign(create, create),
     store: Object.assign(store, store),

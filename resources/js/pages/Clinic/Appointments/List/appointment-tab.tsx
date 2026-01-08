@@ -1,14 +1,15 @@
 
 
+import EmptyState from '@/components/empty-state';
 import { Badge } from '@/components/ui/badge';
 import BoxColor from '@/components/ui/box-color';
 import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -17,27 +18,52 @@ import { FORMAT_DATE, FORMAT_TIME } from '@/constants';
 import { getBadgeVariantApp } from '@/lib/utils';
 import clinic from '@/routes/clinic';
 import { Appointment } from '@/types';
-import { Link, router } from '@inertiajs/react';
+import {  router } from '@inertiajs/react';
 import { format, parseISO } from 'date-fns';
+import { Eye, MoreHorizontal, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 
 
-export default function AppointmentTab({filtered} : {filtered : Appointment[]}) {
+export default function AppointmentTab({filtered , activeTab} : {filtered : Appointment[] , activeTab : string}) {
 
 
+    console.log(activeTab);
     // Quick action helper (confirm, checkin, complete, cancel)
     function quickAction(id: string, action: string) {
 
     if (!confirm(`Are you sure you want to ${action} this appointment?`)) return;
 
         router.post(clinic.appointments.list.action().url, { id, action }, {
-        onSuccess: (page) => {
+        onSuccess: () => {
         // On success, Inertia will re-render page props, so nothing else needed.
             toast.success('update succssfully');
         }
     });
     }
+
+    if (filtered.length === 0) {
+        // Customize message based on the tab
+        const messages = {
+        today: { title: "No appointments today", desc: "Your schedule is clear for the rest of the day." },
+        upcoming: { title: "No upcoming appointments", desc: "There are no appointments scheduled for the future yet." },
+        completed: { title: "No completed visits", desc: "Appointments you finish will appear here." },
+        archived: { title: "Archive is empty", desc: "Cancelled or old appointments will be stored here." },
+        };
+
+        const currentMessage = messages[activeTab as keyof typeof messages] || { 
+            title: "No results found", 
+            desc: "Try adjusting your filters or search terms." 
+        };
+
+        return (
+        <EmptyState 
+            title={currentMessage.title} 
+            description={currentMessage.desc} 
+            showAction={activeTab !== 'archived'} 
+        />
+        );
+  }
 
 
   return (
@@ -82,31 +108,34 @@ export default function AppointmentTab({filtered} : {filtered : Appointment[]}) 
                     </Badge>
                 </TableCell>
 
-                <TableCell className='space-x-2'>
-                
-                 
-                {/* Actions hidden for completed appointments */}
-                {a.status !== 'completed' && a.status === 'scheduled' && (
-                    <>
-                    <Button size="sm" onClick={() => quickAction(a.id, 'confirm')}>Confirm</Button>
-                    <Button size="sm" onClick={() => quickAction(a.id, 'cancel')}>Cancel</Button>
-                    </>
-                )}
+                <TableCell className='text-right'>
+                    <div className="flex justify-end gap-2">
+                        {/* Primary Action - Context Aware */}
+                        {a.status === 'scheduled' && (
+                            <Button size="sm" onClick={() => quickAction(a.id, 'confirm')}>Confirm</Button>
+                        )}
+                        {a.status === 'confirmed' && (
+                            <Button size="sm" variant="outline" onClick={() => quickAction(a.id, 'checkin')}>Check-in</Button>
+                        )}
 
-
-                {a.status !== 'completed' && a.status === 'confirmed' && (
-                    <Button size="sm" onClick={() => quickAction(a.id, 'checkin')}>Check-in</Button>
-                )}
-
-
-                {a.status !== 'completed' && a.status === 'seated' && (
-                    <Button size="sm" onClick={() => quickAction(a.id, 'complete')}>Complete</Button>
-                )}
-
-
-                <Link href={clinic.appointments.show({appointment: a.id}).url}>
-                    <Button size="sm" >View</Button>
-                </Link>
+                        {/* Action Menu for everything else */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm"><MoreHorizontal className="h-4 w-4" /></Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => router.get(clinic.appointments.show({appointment: Number(a.id)}).url)}>
+                                    <Eye className="mr-2 h-4 w-4" /> View Details
+                                </DropdownMenuItem>
+                                
+                                {a.status !== 'completed' && a.status !== 'cancelled' && (
+                                    <DropdownMenuItem className="text-destructive" onClick={() => quickAction(a.id, 'cancel')}>
+                                        <XCircle className="mr-2 h-4 w-4" /> Cancel Appointment
+                                    </DropdownMenuItem>
+                                )}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </TableCell>
         </TableRow>
         ))}

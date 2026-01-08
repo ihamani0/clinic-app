@@ -14,7 +14,7 @@ class Patient extends Model implements HasMedia
     protected $fillable = [
         'first_name', 'last_name', 'dob', 'gender', 'phone',
         'medical_history', 'medical_alert',
-        'blood_type',
+        'blood_type','primary_provider_id',
         'assurance_type', 'assurance_number',
         'primary_provider_id', 'referral_source_id' , 'email' , "address"
     ];

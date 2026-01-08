@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { SelectValue } from "@radix-ui/react-select";
 import AppointmentTab from "./appointment-tab";
+import {   Recycle } from "lucide-react";
+import { TooltipWrapper } from "@/components/ui/tool-tip-warraper";
 
 type Props = {
     appointments : Appointment[];
@@ -97,6 +99,10 @@ export default function AppointmentList({appointments , activeTab , doctors} : P
     );
     }, []);
 
+    const clearFilter = () => { setSearch(''); setDoctorId(''); setStatusFilter(''); }
+
+
+ 
 return (
 <AppLayout
 breadcrumbs={breadcrumbs}
@@ -109,14 +115,16 @@ breadcrumbs={breadcrumbs}
     </CardHeader>
     <CardContent>
 
-        <div className="flex gap-3 items-center">
-            <Input placeholder="Search patient or phone..." value={search} onChange={(e) => setSearch(e.target.value)} />
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-x-3 mb-6">
 
-
-
-            <Input placeholder="From YYYY-MM-DD" value={dateFrom} onChange={(e)=> setDateFrom(e.target.value)} />
-            <Input placeholder="To YYYY-MM-DD" value={dateTo} onChange={(e)=> setDateTo(e.target.value)} />
-
+            <Input 
+                className="lg:col-span-2  " 
+                placeholder="Search patient..." 
+                value={search} 
+                onChange={(e) => setSearch(e.target.value)} 
+            />
+            <Input type="date" value={dateFrom} onChange={(e)=> setDateFrom(e.target.value)} />
+            <Input type="date" value={dateTo} onChange={(e)=> setDateTo(e.target.value)} />
             <Select onValueChange={(val) => setDoctorId(val)} value={doctorId || ''}>
                 <SelectTrigger className="w-40">
                         <SelectValue placeholder="All doctors " />
@@ -146,12 +154,19 @@ breadcrumbs={breadcrumbs}
             </Select>
 
 
+            <div className=" gap-x-2 flex ">
+                <TooltipWrapper content="Clear Filters">
+                    <Button onClick={clearFilter} size={'icon'} variant={"outline"}  >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-brush-cleaning-icon lucide-brush-cleaning"><path d="m16 22-1-4"/><path d="M19 14a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v1a1 1 0 0 0 1 1"/><path d="M19 14H5l-1.973 6.767A1 1.5.5.5.5.5.5.5.5.5.5.5.5.5.5.5.5.5.5.5-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8-.8z"/><path d="m8,22,9,9"/></svg>
+                    </Button>
+                </TooltipWrapper>
 
-            <Button onClick={()=> { setSearch(''); setDoctorId(''); setStatusFilter(''); }}>Clear</Button>
 
-
-            <div className="ml-auto">
-                <Button onClick={() => router.get(clinic.appointments.list.index().url , {tab})}>Refresh</Button>
+                <TooltipWrapper content="Reset">
+                    <Button onClick={() => router.get(clinic.appointments.list.index().url , {tab})}>
+                        <Recycle />
+                    </Button>
+                </TooltipWrapper>
             </div>
         </div>
 
@@ -172,7 +187,7 @@ breadcrumbs={breadcrumbs}
                                 <AppointmentSkeleton />
                             </>
                         ) : (
-                                <AppointmentTab filtered={filtered} />
+                                <AppointmentTab filtered={filtered} activeTab={tab} />
                         )}
                 </TabsContent>
                 <TabsContent value="upcoming">
@@ -184,7 +199,7 @@ breadcrumbs={breadcrumbs}
                                 <AppointmentSkeleton />
                             </>
                         ) : (
-                            <AppointmentTab filtered={filtered} />
+                            <AppointmentTab filtered={filtered} activeTab={tab}  />
                         )}
 
                 </TabsContent>
@@ -198,7 +213,7 @@ breadcrumbs={breadcrumbs}
                                 <AppointmentSkeleton />
                             </>
                             ) : (
-                            <AppointmentTab filtered={filtered} />
+                            <AppointmentTab filtered={filtered} activeTab={tab}  />
                         )}
                 </TabsContent>
                 <TabsContent value="past">
@@ -210,7 +225,7 @@ breadcrumbs={breadcrumbs}
                                 <AppointmentSkeleton />
                             </>
                             ) : (
-                            <AppointmentTab filtered={filtered} />
+                            <AppointmentTab filtered={filtered} activeTab={tab} />
                         )}
                 </TabsContent>
 
@@ -223,7 +238,7 @@ breadcrumbs={breadcrumbs}
                             <AppointmentSkeleton />
                         </>
                     ) : (
-                        <AppointmentTab filtered={filtered} />
+                        <AppointmentTab filtered={filtered} activetab={activeTab}  />
                     )}
                 </TabsContent>
             </Tabs>

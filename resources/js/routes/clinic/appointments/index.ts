@@ -222,7 +222,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 export const show = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -237,7 +237,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 show.url = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -270,7 +270,7 @@ show.url = (args: { appointment: number | { id: number } } | [appointment: numbe
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 show.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -280,7 +280,7 @@ show.get = (args: { appointment: number | { id: number } } | [appointment: numbe
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 show.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -290,7 +290,7 @@ show.head = (args: { appointment: number | { id: number } } | [appointment: numb
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 const showForm = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -300,7 +300,7 @@ const showForm = (args: { appointment: number | { id: number } } | [appointment:
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 showForm.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -310,7 +310,7 @@ showForm.get = (args: { appointment: number | { id: number } } | [appointment: n
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::show
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:155
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:160
 * @route '/clinic/appointments/{appointment}'
 */
 showForm.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -327,7 +327,7 @@ show.form = showForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 export const edit = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -342,7 +342,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 edit.url = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -375,7 +375,7 @@ edit.url = (args: { appointment: number | { id: number } } | [appointment: numbe
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 edit.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -385,7 +385,7 @@ edit.get = (args: { appointment: number | { id: number } } | [appointment: numbe
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 edit.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -395,7 +395,7 @@ edit.head = (args: { appointment: number | { id: number } } | [appointment: numb
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 const editForm = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -405,7 +405,7 @@ const editForm = (args: { appointment: number | { id: number } } | [appointment:
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 editForm.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -415,7 +415,7 @@ editForm.get = (args: { appointment: number | { id: number } } | [appointment: n
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::edit
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:168
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:173
 * @route '/clinic/appointments/{appointment}/edit'
 */
 editForm.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -432,7 +432,7 @@ edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::update
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:192
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:197
 * @route '/clinic/appointments/{appointment}'
 */
 export const update = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -447,7 +447,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::update
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:192
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:197
 * @route '/clinic/appointments/{appointment}'
 */
 update.url = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -480,7 +480,7 @@ update.url = (args: { appointment: number | { id: number } } | [appointment: num
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::update
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:192
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:197
 * @route '/clinic/appointments/{appointment}'
 */
 update.put = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -490,7 +490,7 @@ update.put = (args: { appointment: number | { id: number } } | [appointment: num
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::update
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:192
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:197
 * @route '/clinic/appointments/{appointment}'
 */
 const updateForm = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -505,7 +505,7 @@ const updateForm = (args: { appointment: number | { id: number } } | [appointmen
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::update
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:192
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:197
 * @route '/clinic/appointments/{appointment}'
 */
 updateForm.put = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

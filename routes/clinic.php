@@ -26,6 +26,8 @@ Route::middleware(['auth', 'verified'])->prefix('clinic')->name('clinic.')->grou
 
     Route::post('/appointments/create-patient' , [App\Http\Controllers\Clinic\Appointment\AppointmentController::class, 'create_patient'])->name('appointments.create.patient');
 
+    Route::get('/patients/by-birthday', [AppointmentController::class, 'byBirthday'])
+        ->name('patient.byBirthday');
 
 
 

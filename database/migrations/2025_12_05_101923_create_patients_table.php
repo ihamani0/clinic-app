@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->unique(['first_name', 'last_name']);
             
-            $table->date('dob')->nullable();
+            $table->date('dob');
             $table->enum('gender', ['male', 'female']);
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
@@ -42,6 +42,8 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('dob');
         });
     }
 
