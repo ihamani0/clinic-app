@@ -1,0 +1,1 @@
+import{c as l,j as u}from"./app-CN3BbJ5b.js";function p(i){const o=l.c(5),{color:c,size:n,rounded:d}=i,s=c===void 0?"#ccc":c,r=`${n===void 0?"w-4 h-4":n} ${d===void 0?"rounded":d} border`;let t;o[0]!==s?(t={backgroundColor:s},o[0]=s,o[1]=t):t=o[1];let e;return o[2]!==r||o[3]!==t?(e=u.jsx("div",{className:r,style:t}),o[2]=r,o[3]=t,o[4]=e):e=o[4],e}export{p as B};
