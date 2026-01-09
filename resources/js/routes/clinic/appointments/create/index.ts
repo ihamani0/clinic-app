@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::patient
 * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:142
@@ -32,28 +32,6 @@ patient.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: patient.url(options),
     method: 'post',
 })
-
-/**
-* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::patient
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:142
-* @route '/clinic/appointments/create-patient'
-*/
-const patientForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: patient.url(options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::patient
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:142
-* @route '/clinic/appointments/create-patient'
-*/
-patientForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: patient.url(options),
-    method: 'post',
-})
-
-patient.form = patientForm
 
 const create = {
     patient: Object.assign(patient, patient),

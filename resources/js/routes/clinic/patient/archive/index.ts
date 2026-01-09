@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::restore
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
 * @route '/clinic/archive/patient/restore/{patient}'
 */
-export const restore = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const restore = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: restore.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ restore.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
 * @route '/clinic/archive/patient/restore/{patient}'
 */
-restore.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+restore.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -52,39 +52,17 @@ restore.url = (args: { patient: number | { id: number } } | [patient: number | {
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
 * @route '/clinic/archive/patient/restore/{patient}'
 */
-restore.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+restore.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: restore.url(args, options),
     method: 'post',
 })
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::restore
-* @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
-* @route '/clinic/archive/patient/restore/{patient}'
-*/
-const restoreForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: restore.url(args, options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::restore
-* @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
-* @route '/clinic/archive/patient/restore/{patient}'
-*/
-restoreForm.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: restore.url(args, options),
-    method: 'post',
-})
-
-restore.form = restoreForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::forceDelete
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
 * @route '/clinic/archive/patient/force-delete/{patient}'
 */
-export const forceDelete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const forceDelete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: forceDelete.url(args, options),
     method: 'delete',
 })
@@ -99,7 +77,7 @@ forceDelete.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
 * @route '/clinic/archive/patient/force-delete/{patient}'
 */
-forceDelete.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+forceDelete.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -132,42 +110,10 @@ forceDelete.url = (args: { patient: number | { id: number } } | [patient: number
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
 * @route '/clinic/archive/patient/force-delete/{patient}'
 */
-forceDelete.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+forceDelete.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: forceDelete.url(args, options),
     method: 'delete',
 })
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::forceDelete
-* @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
-* @route '/clinic/archive/patient/force-delete/{patient}'
-*/
-const forceDeleteForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: forceDelete.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::forceDelete
-* @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
-* @route '/clinic/archive/patient/force-delete/{patient}'
-*/
-forceDeleteForm.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: forceDelete.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-forceDelete.form = forceDeleteForm
 
 const archive = {
     restore: Object.assign(restore, restore),

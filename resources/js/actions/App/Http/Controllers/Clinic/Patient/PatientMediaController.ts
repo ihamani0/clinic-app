@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
 * @route '/clinic/patients/{patient}/upload'
 */
-export const store = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
 * @route '/clinic/patients/{patient}/upload'
 */
-store.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+store.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -52,39 +52,17 @@ store.url = (args: { patient: number | { id: number } } | [patient: number | { i
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
 * @route '/clinic/patients/{patient}/upload'
 */
-store.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
-* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
-* @route '/clinic/patients/{patient}/upload'
-*/
-const storeForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(args, options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
-* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
-* @route '/clinic/patients/{patient}/upload'
-*/
-storeForm.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(args, options),
-    method: 'post',
-})
-
-store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::destroy
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
 */
-export const destroy = (args: { patient: number | { id: number }, media: string | number } | [patient: number | { id: number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -99,7 +77,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
 */
-destroy.url = (args: { patient: number | { id: number }, media: string | number } | [patient: number | { id: number }, media: string | number ], options?: RouteQueryOptions) => {
+destroy.url = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
             patient: args[0],
@@ -127,42 +105,10 @@ destroy.url = (args: { patient: number | { id: number }, media: string | number 
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
 */
-destroy.delete = (args: { patient: number | { id: number }, media: string | number } | [patient: number | { id: number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::destroy
-* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
-* @route '/clinic/patients/{patient}/media/{media}'
-*/
-const destroyForm = (args: { patient: number | { id: number }, media: string | number } | [patient: number | { id: number }, media: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::destroy
-* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
-* @route '/clinic/patients/{patient}/media/{media}'
-*/
-destroyForm.delete = (args: { patient: number | { id: number }, media: string | number } | [patient: number | { id: number }, media: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-destroy.form = destroyForm
 
 const PatientMediaController = { store, destroy }
 
