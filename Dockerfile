@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # --- Stage 2: Build the Backend (PHP/Nginx) ---
-FROM richarvey/nginx-php-fpm:latest
+FROM richarvey/nginx-php-fpm:php8.4-latest
 
 # Set working directory
 WORKDIR /var/www/html
