@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # --- Stage 2: Build the Backend (PHP/Nginx) ---
-FROM richarvey/nginx-php-fpm:php8.4-latest
+FROM richarvey/nginx-php-fpm:latest
 
 # Set working directory
 WORKDIR /var/www/html
@@ -28,7 +28,7 @@ ENV APP_DEBUG false
 
 # Install Composer dependencies
 ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Fix permissions for Laravel
 RUN chmod -R 775 storage bootstrap/cache
