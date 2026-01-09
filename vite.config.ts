@@ -4,7 +4,10 @@ import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+
+    const isProduction = mode === 'production';
+    return {
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
@@ -17,11 +20,15 @@ export default defineConfig({
             },
         }),
         tailwindcss(),
-        wayfinder({
-            formVariants: true,
+
+        !isProduction && wayfinder({
+                formVariants: true,
         }),
-    ],
+        
+
+    ].filter(Boolean),
     esbuild: {
         jsx: 'automatic',
     },
+    }
 });
