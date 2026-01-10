@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
@@ -58,6 +58,28 @@ store.post = (args: { patient: string | number | { id: string | number } } | [pa
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
+* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
+* @route '/clinic/patients/{patient}/upload'
+*/
+const storeForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
+* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
+* @route '/clinic/patients/{patient}/upload'
+*/
+storeForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+store.form = storeForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::deleteMethod
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
@@ -109,6 +131,38 @@ deleteMethod.delete = (args: { patient: string | number | { id: string | number 
     url: deleteMethod.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::deleteMethod
+* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
+* @route '/clinic/patients/{patient}/media/{media}'
+*/
+const deleteMethodForm = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: deleteMethod.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::deleteMethod
+* @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
+* @route '/clinic/patients/{patient}/media/{media}'
+*/
+deleteMethodForm.delete = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: deleteMethod.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+deleteMethod.form = deleteMethodForm
 
 const media = {
     store: Object.assign(store, store),

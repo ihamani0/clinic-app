@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateBatch
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
@@ -58,6 +58,28 @@ updateBatch.post = (args: { patient: string | number | { id: string | number } }
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateBatch
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
+* @route '/clinic/patients/{patient}/teeth/batch'
+*/
+const updateBatchForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: updateBatch.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateBatch
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
+* @route '/clinic/patients/{patient}/teeth/batch'
+*/
+updateBatchForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: updateBatch.url(args, options),
+    method: 'post',
+})
+
+updateBatch.form = updateBatchForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateSingle
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
 * @route '/clinic/patients/{patient}/teeth/single'
@@ -114,6 +136,28 @@ updateSingle.post = (args: { patient: string | number | { id: string | number } 
     url: updateSingle.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateSingle
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
+* @route '/clinic/patients/{patient}/teeth/single'
+*/
+const updateSingleForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: updateSingle.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateSingle
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
+* @route '/clinic/patients/{patient}/teeth/single'
+*/
+updateSingleForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: updateSingle.url(args, options),
+    method: 'post',
+})
+
+updateSingle.form = updateSingleForm
 
 const teeth = {
     updateBatch: Object.assign(updateBatch, updateBatch),
