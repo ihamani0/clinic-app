@@ -1,3 +1,4 @@
+
 # --- Stage 1: Build Frontend Assets (Vite) ---
 FROM node:20-alpine AS build-stage
 WORKDIR /app
@@ -6,12 +7,12 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# --- Stage 2: PHP & Nginx + Spatie Media Tools ---
-FROM php:8.4-fpm-alpine
 
-# Install System Dependencies, Nginx, and Media Optimization Tools for Spatie
+
+
+FROM richarvey/nginx-php-fpm:latest
+
 RUN apk add --no-cache \
-    nginx \
     bash \
     icu-dev \
     libzip-dev \
@@ -27,42 +28,37 @@ RUN apk add --no-cache \
     gifsicle \
     libwebp-tools \
     postgresql-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp 
+    nginx \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install gd pdo_pgsql zip intl bcmath
 
-# Install PHP Extensions using the reliable mlocati helper
-# This ensures pdo_pgsql and gd (for Spatie) are perfectly installed
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN install-php-extensions pdo_mysql pdo_pgsql pgsql intl zip exif opcache gd
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Set working directory
 WORKDIR /var/www/html
 
-# 1. Copy application code first
 COPY . .
 
-# 2. Copy built assets from the build-stage (Vite)
+
 COPY --from=build-stage /app/public/build ./public/build
 
-# 3. Setup Entrypoint script
-# We copy it from your local 'script' folder to the container's bin
+
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
+
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
+
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
 COPY scripts/00-laravel-deploy.sh /usr/local/bin/00-laravel-deploy.sh
-RUN chmod +x /usr/local/bin/00-laravel-deploy.sh && sed -i 's/\r$//' /usr/local/bin/00-laravel-deploy.sh
+RUN chmod +x /usr/local/bin/00-laravel-deploy.sh
 
-# 4. Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
 
-# 5. Setup Nginx config
-COPY nginx/default.conf /etc/nginx/http.d/default.conf
-
-# 6. Set Permissions for Laravel & Spatie
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Expose HTTP
 EXPOSE 80
-
-# Run the deploy script
-ENTRYPOINT ["/usr/local/bin/00-laravel-deploy.sh"]
+CMD ["00-laravel-deploy.sh"]
