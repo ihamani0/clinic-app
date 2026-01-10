@@ -27,8 +27,12 @@ RUN apk add --no-cache \
     gifsicle \
     libwebp-tools \
     postgresql-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install pdo_mysql pdo_pgsql pgsql intl zip exif opcache gd
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp 
+
+# Install PHP Extensions using the reliable mlocati helper
+# This ensures pdo_pgsql and gd (for Spatie) are perfectly installed
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions pdo_mysql pdo_pgsql pgsql intl zip exif opcache gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
