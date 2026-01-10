@@ -131,7 +131,9 @@ class AppointmentController extends Controller
 
         //Save Provider for each Patient From First Appoitment 
         if($appointment->patient->primary_provider_id === null){
-            $appointment->patient->update("primary_provider_id", $validated['doctor_id']);
+                $appointment->patient->update([
+                    'primary_provider_id' => $validated['doctor_id'],
+                ]);
         }
 
         return redirect()->route('clinic.appointments.index')->with('success', 'Appointment created successfully.');

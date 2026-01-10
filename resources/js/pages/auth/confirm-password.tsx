@@ -4,10 +4,22 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
-import { store } from '@/routes/password/confirm';
-import { Form, Head } from '@inertiajs/react';
+import password from '@/routes/password';
+import { Form, Head, useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
+
+    const form = useForm({
+        password:'',
+    });
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        form.post(password.confirm.store().url, {
+            onSuccess: () => form.reset('password'), // optional: reset email after success
+        });
+    };
+
     return (
         <AuthLayout
             title="Confirm your password"
@@ -15,8 +27,8 @@ export default function ConfirmPassword() {
         >
             <Head title="Confirm password" />
 
-            <Form {...store.form()} resetOnSuccess={['password']}>
-                {({ processing, errors }) => (
+            <form onSubmit={submit}  className="space-y-6">
+                
                     <div className="space-y-6">
                         <div className="grid gap-2">
                             <Label htmlFor="password">Password</Label>
@@ -27,24 +39,26 @@ export default function ConfirmPassword() {
                                 placeholder="Password"
                                 autoComplete="current-password"
                                 autoFocus
+                                value={form.data.password} // bind input to form state
+                                onChange={(e) => form.setData('password', e.target.value)}
                             />
 
-                            <InputError message={errors.password} />
+                            <InputError message={form.errors.password} />
                         </div>
 
                         <div className="flex items-center">
                             <Button
                                 className="w-full"
-                                disabled={processing}
+                                disabled={form.processing}
                                 data-test="confirm-password-button"
                             >
-                                {processing && <Spinner />}
+                                {form.processing && <Spinner />}
                                 Confirm password
                             </Button>
                         </div>
                     </div>
-                )}
-            </Form>
+                
+            </form>
         </AuthLayout>
     );
 }
