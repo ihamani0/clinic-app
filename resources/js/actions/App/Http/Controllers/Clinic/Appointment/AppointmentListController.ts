@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::index
 * @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:17
@@ -77,9 +77,6 @@ action.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
-const list = {
-    index: Object.assign(index, index),
-    action: Object.assign(action, action),
-}
+const AppointmentListController = { index, action }
 
-export default list
+export default AppointmentListController

@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Settings\PasswordController::edit
 * @see app/Http/Controllers/Settings/PasswordController.php:17
@@ -77,9 +77,6 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     method: 'put',
 })
 
-const userPassword = {
-    edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
-}
+const PasswordController = { edit, update }
 
-export default userPassword
+export default PasswordController

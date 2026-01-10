@@ -1,7 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
-import create4f58d6 from './create'
-import list from './list'
-import fetch from './fetch'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::index
 * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:21
@@ -122,6 +119,128 @@ store.url = (options?: RouteQueryOptions) => {
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::create_patient
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:142
+* @route '/clinic/appointments/create-patient'
+*/
+export const create_patient = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: create_patient.url(options),
+    method: 'post',
+})
+
+create_patient.definition = {
+    methods: ["post"],
+    url: '/clinic/appointments/create-patient',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::create_patient
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:142
+* @route '/clinic/appointments/create-patient'
+*/
+create_patient.url = (options?: RouteQueryOptions) => {
+    return create_patient.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::create_patient
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:142
+* @route '/clinic/appointments/create-patient'
+*/
+create_patient.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: create_patient.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+export const byBirthday = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: byBirthday.url(options),
+    method: 'get',
+})
+
+byBirthday.definition = {
+    methods: ["get","head"],
+    url: '/clinic/patients/by-birthday',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthday.url = (options?: RouteQueryOptions) => {
+    return byBirthday.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthday.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: byBirthday.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthday.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: byBirthday.url(options),
+    method: 'head',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::fetchEvents
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:51
+* @route '/clinic/appointments/fetch/events'
+*/
+export const fetchEvents = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: fetchEvents.url(options),
+    method: 'get',
+})
+
+fetchEvents.definition = {
+    methods: ["get","head"],
+    url: '/clinic/appointments/fetch/events',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::fetchEvents
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:51
+* @route '/clinic/appointments/fetch/events'
+*/
+fetchEvents.url = (options?: RouteQueryOptions) => {
+    return fetchEvents.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::fetchEvents
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:51
+* @route '/clinic/appointments/fetch/events'
+*/
+fetchEvents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: fetchEvents.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::fetchEvents
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:51
+* @route '/clinic/appointments/fetch/events'
+*/
+fetchEvents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: fetchEvents.url(options),
+    method: 'head',
 })
 
 /**
@@ -318,15 +437,6 @@ update.put = (args: { appointment: string | number | { id: string | number } } |
     method: 'put',
 })
 
-const appointments = {
-    index: Object.assign(index, index),
-    create: Object.assign(create, create4f58d6),
-    store: Object.assign(store, store),
-    list: Object.assign(list, list),
-    fetch: Object.assign(fetch, fetch),
-    show: Object.assign(show, show),
-    edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
-}
+const AppointmentController = { index, create, store, create_patient, byBirthday, fetchEvents, show, edit, update }
 
-export default appointments
+export default AppointmentController

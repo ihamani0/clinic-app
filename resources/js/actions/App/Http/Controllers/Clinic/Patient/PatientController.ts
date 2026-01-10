@@ -1,53 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
-import archiveBc62fe from './archive'
-import teethBf3329 from './teeth'
-import treatments from './treatments'
-import media from './media'
-import finances from './finances'
-/**
-* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
-* @route '/clinic/patients/by-birthday'
-*/
-export const byBirthday = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: byBirthday.url(options),
-    method: 'get',
-})
-
-byBirthday.definition = {
-    methods: ["get","head"],
-    url: '/clinic/patients/by-birthday',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
-* @route '/clinic/patients/by-birthday'
-*/
-byBirthday.url = (options?: RouteQueryOptions) => {
-    return byBirthday.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
-* @route '/clinic/patients/by-birthday'
-*/
-byBirthday.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: byBirthday.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
-* @route '/clinic/patients/by-birthday'
-*/
-byBirthday.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: byBirthday.url(options),
-    method: 'head',
-})
-
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::index
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:19
@@ -421,70 +372,70 @@ destroy.delete = (args: { patient: string | number | { id: string | number } } |
 })
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_index
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
 * @route '/clinic/archive/patient'
 */
-export const archive = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: archive.url(options),
+export const archive_index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: archive_index.url(options),
     method: 'get',
 })
 
-archive.definition = {
+archive_index.definition = {
     methods: ["get","head"],
     url: '/clinic/archive/patient',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_index
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
 * @route '/clinic/archive/patient'
 */
-archive.url = (options?: RouteQueryOptions) => {
-    return archive.definition.url + queryParams(options)
+archive_index.url = (options?: RouteQueryOptions) => {
+    return archive_index.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_index
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
 * @route '/clinic/archive/patient'
 */
-archive.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: archive.url(options),
+archive_index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: archive_index.url(options),
     method: 'get',
 })
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_index
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
 * @route '/clinic/archive/patient'
 */
-archive.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: archive.url(options),
+archive_index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: archive_index.url(options),
     method: 'head',
 })
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
-* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
-* @route '/clinic/patients/{patient}/teeth'
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_restore
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
+* @route '/clinic/archive/patient/restore/{patient}'
 */
-export const teeth = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: teeth.url(args, options),
-    method: 'get',
+export const archive_restore = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: archive_restore.url(args, options),
+    method: 'post',
 })
 
-teeth.definition = {
-    methods: ["get","head"],
-    url: '/clinic/patients/{patient}/teeth',
-} satisfies RouteDefinition<["get","head"]>
+archive_restore.definition = {
+    methods: ["post"],
+    url: '/clinic/archive/patient/restore/{patient}',
+} satisfies RouteDefinition<["post"]>
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
-* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
-* @route '/clinic/patients/{patient}/teeth'
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_restore
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
+* @route '/clinic/archive/patient/restore/{patient}'
 */
-teeth.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+archive_restore.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -507,45 +458,79 @@ teeth.url = (args: { patient: string | number | { id: string | number } } | [pat
         : args.patient,
     }
 
-    return teeth.definition.url
+    return archive_restore.definition.url
             .replace('{patient}', parsedArgs.patient.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
-* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
-* @route '/clinic/patients/{patient}/teeth'
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive_restore
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
+* @route '/clinic/archive/patient/restore/{patient}'
 */
-teeth.get = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: teeth.url(args, options),
-    method: 'get',
+archive_restore.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: archive_restore.url(args, options),
+    method: 'post',
 })
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
-* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
-* @route '/clinic/patients/{patient}/teeth'
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::forceDelete
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
+* @route '/clinic/archive/patient/force-delete/{patient}'
 */
-teeth.head = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: teeth.url(args, options),
-    method: 'head',
+export const forceDelete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: forceDelete.url(args, options),
+    method: 'delete',
 })
 
-const patient = {
-    byBirthday: Object.assign(byBirthday, byBirthday),
-    index: Object.assign(index, index),
-    create: Object.assign(create, create),
-    store: Object.assign(store, store),
-    show: Object.assign(show, show),
-    edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
-    destroy: Object.assign(destroy, destroy),
-    archive: Object.assign(archive, archiveBc62fe),
-    teeth: Object.assign(teeth, teethBf3329),
-    treatments: Object.assign(treatments, treatments),
-    media: Object.assign(media, media),
-    finances: Object.assign(finances, finances),
+forceDelete.definition = {
+    methods: ["delete"],
+    url: '/clinic/archive/patient/force-delete/{patient}',
+} satisfies RouteDefinition<["delete"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::forceDelete
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
+* @route '/clinic/archive/patient/force-delete/{patient}'
+*/
+forceDelete.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { patient: args }
+    }
+
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { patient: args.id }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            patient: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        patient: typeof args.patient === 'object'
+        ? args.patient.id
+        : args.patient,
+    }
+
+    return forceDelete.definition.url
+            .replace('{patient}', parsedArgs.patient.toString())
+            .replace(/\/+$/, '') + queryParams(options)
 }
 
-export default patient
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::forceDelete
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
+* @route '/clinic/archive/patient/force-delete/{patient}'
+*/
+forceDelete.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: forceDelete.url(args, options),
+    method: 'delete',
+})
+
+const PatientController = { index, create, store, show, edit, update, destroy, archive_index, archive_restore, forceDelete }
+
+export default PatientController

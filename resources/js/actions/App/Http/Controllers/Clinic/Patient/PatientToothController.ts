@@ -1,4 +1,72 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+export const index = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: index.url(args, options),
+    method: 'get',
+})
+
+index.definition = {
+    methods: ["get","head"],
+    url: '/clinic/patients/{patient}/teeth',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+index.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { patient: args }
+    }
+
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { patient: args.id }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            patient: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        patient: typeof args.patient === 'object'
+        ? args.patient.id
+        : args.patient,
+    }
+
+    return index.definition.url
+            .replace('{patient}', parsedArgs.patient.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+index.get = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: index.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+index.head = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: index.url(args, options),
+    method: 'head',
+})
+
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientToothController::updateBatch
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
@@ -115,9 +183,6 @@ updateSingle.post = (args: { patient: string | number | { id: string | number } 
     method: 'post',
 })
 
-const teeth = {
-    updateBatch: Object.assign(updateBatch, updateBatch),
-    updateSingle: Object.assign(updateSingle, updateSingle),
-}
+const PatientToothController = { index, updateBatch, updateSingle }
 
-export default teeth
+export default PatientToothController

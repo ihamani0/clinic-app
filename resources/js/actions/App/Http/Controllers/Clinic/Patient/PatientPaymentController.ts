@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientPaymentController::store
 * @see app/Http/Controllers/Clinic/Patient/PatientPaymentController.php:15
@@ -33,8 +33,6 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
-const payments = {
-    store: Object.assign(store, store),
-}
+const PatientPaymentController = { store }
 
-export default payments
+export default PatientPaymentController

@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::store
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:13
@@ -58,26 +58,26 @@ store.post = (args: { patient: string | number | { id: string | number } } | [pa
 })
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::deleteMethod
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::destroy
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
 */
-export const deleteMethod = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
-    url: deleteMethod.url(args, options),
+export const destroy = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy.url(args, options),
     method: 'delete',
 })
 
-deleteMethod.definition = {
+destroy.definition = {
     methods: ["delete"],
     url: '/clinic/patients/{patient}/media/{media}',
 } satisfies RouteDefinition<["delete"]>
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::deleteMethod
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::destroy
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
 */
-deleteMethod.url = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions) => {
+destroy.url = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
             patient: args[0],
@@ -94,25 +94,22 @@ deleteMethod.url = (args: { patient: string | number | { id: string | number }, 
         media: args.media,
     }
 
-    return deleteMethod.definition.url
+    return destroy.definition.url
             .replace('{patient}', parsedArgs.patient.toString())
             .replace('{media}', parsedArgs.media.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::deleteMethod
+* @see \App\Http\Controllers\Clinic\Patient\PatientMediaController::destroy
 * @see app/Http/Controllers/Clinic/Patient/PatientMediaController.php:28
 * @route '/clinic/patients/{patient}/media/{media}'
 */
-deleteMethod.delete = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
-    url: deleteMethod.url(args, options),
+destroy.delete = (args: { patient: string | number | { id: string | number }, media: string | number } | [patient: string | number | { id: string | number }, media: string | number ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy.url(args, options),
     method: 'delete',
 })
 
-const media = {
-    store: Object.assign(store, store),
-    delete: Object.assign(deleteMethod, deleteMethod),
-}
+const PatientMediaController = { store, destroy }
 
-export default media
+export default PatientMediaController

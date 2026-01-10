@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Patient\TreatmentController::store
 * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:19
@@ -273,12 +273,6 @@ cancel.post = (args: { patient: string | number, treatment: string | number | { 
     method: 'post',
 })
 
-const treatments = {
-    store: Object.assign(store, store),
-    update: Object.assign(update, update),
-    markDone: Object.assign(markDone, markDone),
-    complete: Object.assign(complete, complete),
-    cancel: Object.assign(cancel, cancel),
-}
+const TreatmentController = { store, update, markDone, complete, cancel }
 
-export default treatments
+export default TreatmentController
