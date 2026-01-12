@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::index
 * @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:17
@@ -44,6 +44,43 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::index
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:17
+* @route '/clinic/appointments/list'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::index
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:17
+* @route '/clinic/appointments/list'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::index
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:17
+* @route '/clinic/appointments/list'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::action
 * @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:91
 * @route '/clinic/appointments/action'
@@ -76,6 +113,28 @@ action.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: action.url(options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::action
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:91
+* @route '/clinic/appointments/action'
+*/
+const actionForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: action.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentListController::action
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentListController.php:91
+* @route '/clinic/appointments/action'
+*/
+actionForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: action.url(options),
+    method: 'post',
+})
+
+action.form = actionForm
 
 const list = {
     index: Object.assign(index, index),

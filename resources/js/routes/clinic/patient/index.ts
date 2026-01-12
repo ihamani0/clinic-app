@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 import archiveBc62fe from './archive'
 import teethBf3329 from './teeth'
 import treatments from './treatments'
@@ -6,7 +6,7 @@ import media from './media'
 import finances from './finances'
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
 * @route '/clinic/patients/by-birthday'
 */
 export const byBirthday = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -21,7 +21,7 @@ byBirthday.definition = {
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
 * @route '/clinic/patients/by-birthday'
 */
 byBirthday.url = (options?: RouteQueryOptions) => {
@@ -30,7 +30,7 @@ byBirthday.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
 * @route '/clinic/patients/by-birthday'
 */
 byBirthday.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -40,13 +40,50 @@ byBirthday.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
-* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:233
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
 * @route '/clinic/patients/by-birthday'
 */
 byBirthday.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: byBirthday.url(options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
+* @route '/clinic/patients/by-birthday'
+*/
+const byBirthdayForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: byBirthday.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthdayForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: byBirthday.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Appointment\AppointmentController::byBirthday
+* @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:235
+* @route '/clinic/patients/by-birthday'
+*/
+byBirthdayForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: byBirthday.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+byBirthday.form = byBirthdayForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::index
@@ -93,6 +130,43 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:19
+* @route '/clinic/patient'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:19
+* @route '/clinic/patient'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::index
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:19
+* @route '/clinic/patient'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::create
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
 * @route '/clinic/patient/create'
@@ -137,6 +211,43 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::create
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
+* @route '/clinic/patient/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::create
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
+* @route '/clinic/patient/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::create
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
+* @route '/clinic/patient/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::store
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:50
 * @route '/clinic/patient'
@@ -171,11 +282,33 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::store
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:50
+* @route '/clinic/patient'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::store
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:50
+* @route '/clinic/patient'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::show
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
 * @route '/clinic/patient/{patient}'
 */
-export const show = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -190,7 +323,7 @@ show.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
 * @route '/clinic/patient/{patient}'
 */
-show.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -223,7 +356,7 @@ show.url = (args: { patient: string | number | { id: string | number } } | [pati
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
 * @route '/clinic/patient/{patient}'
 */
-show.get = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -233,10 +366,47 @@ show.get = (args: { patient: string | number | { id: string | number } } | [pati
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
 * @route '/clinic/patient/{patient}'
 */
-show.head = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::show
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
+* @route '/clinic/patient/{patient}'
+*/
+const showForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::show
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
+* @route '/clinic/patient/{patient}'
+*/
+showForm.get = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::show
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
+* @route '/clinic/patient/{patient}'
+*/
+showForm.head = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+show.form = showForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::edit
@@ -301,6 +471,43 @@ edit.head = (args: { patient: string | number } | [patient: string | number ] | 
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::edit
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
+* @route '/clinic/patient/{patient}/edit'
+*/
+const editForm = (args: { patient: string | number } | [patient: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::edit
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
+* @route '/clinic/patient/{patient}/edit'
+*/
+editForm.get = (args: { patient: string | number } | [patient: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::edit
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:0
+* @route '/clinic/patient/{patient}/edit'
+*/
+editForm.head = (args: { patient: string | number } | [patient: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::update
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:169
 * @route '/clinic/patient/{patient}'
@@ -363,11 +570,58 @@ update.patch = (args: { patient: string | number } | [patient: string | number ]
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::update
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:169
+* @route '/clinic/patient/{patient}'
+*/
+const updateForm = (args: { patient: string | number } | [patient: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::update
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:169
+* @route '/clinic/patient/{patient}'
+*/
+updateForm.put = (args: { patient: string | number } | [patient: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::update
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:169
+* @route '/clinic/patient/{patient}'
+*/
+updateForm.patch = (args: { patient: string | number } | [patient: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::destroy
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
 * @route '/clinic/patient/{patient}'
 */
-export const destroy = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -382,7 +636,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
 * @route '/clinic/patient/{patient}'
 */
-destroy.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -415,10 +669,42 @@ destroy.url = (args: { patient: string | number | { id: string | number } } | [p
 * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
 * @route '/clinic/patient/{patient}'
 */
-destroy.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::destroy
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
+* @route '/clinic/patient/{patient}'
+*/
+const destroyForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::destroy
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
+* @route '/clinic/patient/{patient}'
+*/
+destroyForm.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
 
 /**
 * @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
@@ -465,11 +751,48 @@ archive.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
+* @route '/clinic/archive/patient'
+*/
+const archiveForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: archive.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
+* @route '/clinic/archive/patient'
+*/
+archiveForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: archive.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientController::archive
+* @see app/Http/Controllers/Clinic/Patient/PatientController.php:235
+* @route '/clinic/archive/patient'
+*/
+archiveForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: archive.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+archive.form = archiveForm
+
+/**
 * @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
 * @route '/clinic/patients/{patient}/teeth'
 */
-export const teeth = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const teeth = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: teeth.url(args, options),
     method: 'get',
 })
@@ -484,7 +807,7 @@ teeth.definition = {
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
 * @route '/clinic/patients/{patient}/teeth'
 */
-teeth.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+teeth.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -517,7 +840,7 @@ teeth.url = (args: { patient: string | number | { id: string | number } } | [pat
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
 * @route '/clinic/patients/{patient}/teeth'
 */
-teeth.get = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+teeth.get = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: teeth.url(args, options),
     method: 'get',
 })
@@ -527,10 +850,47 @@ teeth.get = (args: { patient: string | number | { id: string | number } } | [pat
 * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
 * @route '/clinic/patients/{patient}/teeth'
 */
-teeth.head = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+teeth.head = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: teeth.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+const teethForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: teeth.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+teethForm.get = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: teeth.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Clinic\Patient\PatientToothController::teeth
+* @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:16
+* @route '/clinic/patients/{patient}/teeth'
+*/
+teethForm.head = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: teeth.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+teeth.form = teethForm
 
 const patient = {
     byBirthday: Object.assign(byBirthday, byBirthday),
