@@ -30,17 +30,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function System({roles} : Prope) {
   return (
-            <AppLayout breadcrumbs={breadcrumbs}>
-                <Head title="System settings" />
-                <SettingsLayout>
-                    <HeadingSmall
-                        title="System settings"
-                        description="Update your System settings"
-                    />
-                    {/* Roles */}
-                    <Separator/>
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title="System settings" />
+            <SettingsLayout>
+                <HeadingSmall
+                    title="System settings"
+                    description="Update your System settings"
+                />
+                {/* Roles */}
+                <Separator/>
                     <RolesManagment roles={roles}  />
-                </SettingsLayout>
-            </AppLayout>
+            </SettingsLayout>
+        </AppLayout>
   )
 }
