@@ -1,5 +1,4 @@
 import payments from './payments'
-
 const finances = {
     payments: Object.assign(payments, payments),
 }
