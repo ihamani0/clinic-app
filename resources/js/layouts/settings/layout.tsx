@@ -4,10 +4,10 @@ import { Separator } from '@/components/ui/separator';
 import { cn, isSameUrl, resolveUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
+import settings from '@/routes/settings';
 import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Settings } from 'lucide-react';
 import { type PropsWithChildren } from 'react';
 
 const sidebarNavItems: NavItem[] = [
@@ -29,8 +29,13 @@ const sidebarNavItems: NavItem[] = [
     
     {
         title: 'system',
-        href: editAppearance(),
-        icon: Settings ,
+        href: settings.roles.index().url,
+        icon: null ,
+    },
+    {
+        title: 'Services',
+        href: settings.services.index().url,
+        icon: null ,
     },
 ];
 

@@ -1,10 +1,12 @@
 import ProfileController from './ProfileController'
 import PasswordController from './PasswordController'
-import TwoFactorAuthenticationController from './TwoFactorAuthenticationController'
+import RoleController from './RoleController'
+import ServicesClinicController from './ServicesClinicController'
 const Settings = {
     ProfileController: Object.assign(ProfileController, ProfileController),
 PasswordController: Object.assign(PasswordController, PasswordController),
-TwoFactorAuthenticationController: Object.assign(TwoFactorAuthenticationController, TwoFactorAuthenticationController),
+RoleController: Object.assign(RoleController, RoleController),
+ServicesClinicController: Object.assign(ServicesClinicController, ServicesClinicController),
 }
 
 export default Settings

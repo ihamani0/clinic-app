@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:19
  * @route '/clinic/patients/{patient}/treatments'
  */
-export const store = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:19
  * @route '/clinic/patients/{patient}/treatments'
  */
-store.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -52,7 +52,7 @@ store.url = (args: { patient: string | number | { id: string | number } } | [pat
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:19
  * @route '/clinic/patients/{patient}/treatments'
  */
-store.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ store.post = (args: { patient: string | number | { id: string | number } } | [pa
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:19
  * @route '/clinic/patients/{patient}/treatments'
  */
-    const storeForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ store.post = (args: { patient: string | number | { id: string | number } } | [pa
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:19
  * @route '/clinic/patients/{patient}/treatments'
  */
-        storeForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })
@@ -83,7 +83,7 @@ store.post = (args: { patient: string | number | { id: string | number } } | [pa
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:92
  * @route '/clinic/patients/{patient}/treatments/{treatment}'
  */
-export const update = (args: { patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { patient: number | { id: number }, treatment: number | { id: number } } | [patient: number | { id: number }, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -98,7 +98,7 @@ update.definition = {
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:92
  * @route '/clinic/patients/{patient}/treatments/{treatment}'
  */
-update.url = (args: { patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+update.url = (args: { patient: number | { id: number }, treatment: number | { id: number } } | [patient: number | { id: number }, treatment: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     patient: args[0],
@@ -128,7 +128,7 @@ update.url = (args: { patient: string | number | { id: string | number }, treatm
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:92
  * @route '/clinic/patients/{patient}/treatments/{treatment}'
  */
-update.put = (args: { patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { patient: number | { id: number }, treatment: number | { id: number } } | [patient: number | { id: number }, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -138,7 +138,7 @@ update.put = (args: { patient: string | number | { id: string | number }, treatm
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:92
  * @route '/clinic/patients/{patient}/treatments/{treatment}'
  */
-    const updateForm = (args: { patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { patient: number | { id: number }, treatment: number | { id: number } } | [patient: number | { id: number }, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -153,7 +153,7 @@ update.put = (args: { patient: string | number | { id: string | number }, treatm
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:92
  * @route '/clinic/patients/{patient}/treatments/{treatment}'
  */
-        updateForm.put = (args: { patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { patient: number | { id: number }, treatment: number | { id: number } } | [patient: number | { id: number }, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -169,7 +169,7 @@ update.put = (args: { patient: string | number | { id: string | number }, treatm
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:68
  * @route '/clinic/patients/{patient}/treatments/{treatmentStep}/done'
  */
-export const markDone = (args: { patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const markDone = (args: { patient: number | { id: number }, treatmentStep: number | { id: number } } | [patient: number | { id: number }, treatmentStep: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: markDone.url(args, options),
     method: 'post',
 })
@@ -184,7 +184,7 @@ markDone.definition = {
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:68
  * @route '/clinic/patients/{patient}/treatments/{treatmentStep}/done'
  */
-markDone.url = (args: { patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+markDone.url = (args: { patient: number | { id: number }, treatmentStep: number | { id: number } } | [patient: number | { id: number }, treatmentStep: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     patient: args[0],
@@ -214,7 +214,7 @@ markDone.url = (args: { patient: string | number | { id: string | number }, trea
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:68
  * @route '/clinic/patients/{patient}/treatments/{treatmentStep}/done'
  */
-markDone.post = (args: { patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+markDone.post = (args: { patient: number | { id: number }, treatmentStep: number | { id: number } } | [patient: number | { id: number }, treatmentStep: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: markDone.url(args, options),
     method: 'post',
 })
@@ -224,7 +224,7 @@ markDone.post = (args: { patient: string | number | { id: string | number }, tre
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:68
  * @route '/clinic/patients/{patient}/treatments/{treatmentStep}/done'
  */
-    const markDoneForm = (args: { patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const markDoneForm = (args: { patient: number | { id: number }, treatmentStep: number | { id: number } } | [patient: number | { id: number }, treatmentStep: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: markDone.url(args, options),
         method: 'post',
     })
@@ -234,7 +234,7 @@ markDone.post = (args: { patient: string | number | { id: string | number }, tre
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:68
  * @route '/clinic/patients/{patient}/treatments/{treatmentStep}/done'
  */
-        markDoneForm.post = (args: { patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } } | [patient: string | number | { id: string | number }, treatmentStep: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        markDoneForm.post = (args: { patient: number | { id: number }, treatmentStep: number | { id: number } } | [patient: number | { id: number }, treatmentStep: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: markDone.url(args, options),
             method: 'post',
         })
@@ -245,7 +245,7 @@ markDone.post = (args: { patient: string | number | { id: string | number }, tre
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:188
  * @route '/clinic/patients/{patient}/treatments/{treatment}/complete'
  */
-export const complete = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const complete = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: complete.url(args, options),
     method: 'post',
 })
@@ -260,7 +260,7 @@ complete.definition = {
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:188
  * @route '/clinic/patients/{patient}/treatments/{treatment}/complete'
  */
-complete.url = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+complete.url = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     patient: args[0],
@@ -288,7 +288,7 @@ complete.url = (args: { patient: string | number, treatment: string | number | {
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:188
  * @route '/clinic/patients/{patient}/treatments/{treatment}/complete'
  */
-complete.post = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+complete.post = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: complete.url(args, options),
     method: 'post',
 })
@@ -298,7 +298,7 @@ complete.post = (args: { patient: string | number, treatment: string | number | 
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:188
  * @route '/clinic/patients/{patient}/treatments/{treatment}/complete'
  */
-    const completeForm = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const completeForm = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: complete.url(args, options),
         method: 'post',
     })
@@ -308,7 +308,7 @@ complete.post = (args: { patient: string | number, treatment: string | number | 
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:188
  * @route '/clinic/patients/{patient}/treatments/{treatment}/complete'
  */
-        completeForm.post = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        completeForm.post = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: complete.url(args, options),
             method: 'post',
         })
@@ -319,7 +319,7 @@ complete.post = (args: { patient: string | number, treatment: string | number | 
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:213
  * @route '/clinic/patients/{patient}/treatments/{treatment}/cancel'
  */
-export const cancel = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const cancel = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: cancel.url(args, options),
     method: 'post',
 })
@@ -334,7 +334,7 @@ cancel.definition = {
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:213
  * @route '/clinic/patients/{patient}/treatments/{treatment}/cancel'
  */
-cancel.url = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+cancel.url = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     patient: args[0],
@@ -362,7 +362,7 @@ cancel.url = (args: { patient: string | number, treatment: string | number | { i
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:213
  * @route '/clinic/patients/{patient}/treatments/{treatment}/cancel'
  */
-cancel.post = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+cancel.post = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: cancel.url(args, options),
     method: 'post',
 })
@@ -372,7 +372,7 @@ cancel.post = (args: { patient: string | number, treatment: string | number | { 
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:213
  * @route '/clinic/patients/{patient}/treatments/{treatment}/cancel'
  */
-    const cancelForm = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const cancelForm = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: cancel.url(args, options),
         method: 'post',
     })
@@ -382,7 +382,7 @@ cancel.post = (args: { patient: string | number, treatment: string | number | { 
  * @see app/Http/Controllers/Clinic/Patient/TreatmentController.php:213
  * @route '/clinic/patients/{patient}/treatments/{treatment}/cancel'
  */
-        cancelForm.post = (args: { patient: string | number, treatment: string | number | { id: string | number } } | [patient: string | number, treatment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        cancelForm.post = (args: { patient: string | number, treatment: number | { id: number } } | [patient: string | number, treatment: number | { id: number } ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: cancel.url(args, options),
             method: 'post',
         })

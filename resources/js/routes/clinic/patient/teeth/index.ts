@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
  * @route '/clinic/patients/{patient}/teeth/batch'
  */
-export const updateBatch = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const updateBatch = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: updateBatch.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ updateBatch.definition = {
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
  * @route '/clinic/patients/{patient}/teeth/batch'
  */
-updateBatch.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+updateBatch.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -52,7 +52,7 @@ updateBatch.url = (args: { patient: string | number | { id: string | number } } 
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
  * @route '/clinic/patients/{patient}/teeth/batch'
  */
-updateBatch.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+updateBatch.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: updateBatch.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ updateBatch.post = (args: { patient: string | number | { id: string | number } }
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
  * @route '/clinic/patients/{patient}/teeth/batch'
  */
-    const updateBatchForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateBatchForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: updateBatch.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ updateBatch.post = (args: { patient: string | number | { id: string | number } }
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:31
  * @route '/clinic/patients/{patient}/teeth/batch'
  */
-        updateBatchForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateBatchForm.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: updateBatch.url(args, options),
             method: 'post',
         })
@@ -83,7 +83,7 @@ updateBatch.post = (args: { patient: string | number | { id: string | number } }
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
  * @route '/clinic/patients/{patient}/teeth/single'
  */
-export const updateSingle = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const updateSingle = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: updateSingle.url(args, options),
     method: 'post',
 })
@@ -98,7 +98,7 @@ updateSingle.definition = {
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
  * @route '/clinic/patients/{patient}/teeth/single'
  */
-updateSingle.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+updateSingle.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -131,7 +131,7 @@ updateSingle.url = (args: { patient: string | number | { id: string | number } }
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
  * @route '/clinic/patients/{patient}/teeth/single'
  */
-updateSingle.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+updateSingle.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: updateSingle.url(args, options),
     method: 'post',
 })
@@ -141,7 +141,7 @@ updateSingle.post = (args: { patient: string | number | { id: string | number } 
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
  * @route '/clinic/patients/{patient}/teeth/single'
  */
-    const updateSingleForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateSingleForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: updateSingle.url(args, options),
         method: 'post',
     })
@@ -151,7 +151,7 @@ updateSingle.post = (args: { patient: string | number | { id: string | number } 
  * @see app/Http/Controllers/Clinic/Patient/PatientToothController.php:56
  * @route '/clinic/patients/{patient}/teeth/single'
  */
-        updateSingleForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateSingleForm.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: updateSingle.url(args, options),
             method: 'post',
         })

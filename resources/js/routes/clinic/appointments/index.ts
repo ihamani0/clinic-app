@@ -218,7 +218,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-export const show = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -233,7 +233,7 @@ show.definition = {
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-show.url = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { appointment: args }
     }
@@ -266,7 +266,7 @@ show.url = (args: { appointment: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-show.get = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -275,7 +275,7 @@ show.get = (args: { appointment: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-show.head = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -285,7 +285,7 @@ show.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-    const showForm = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -295,7 +295,7 @@ show.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-        showForm.get = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -304,7 +304,7 @@ show.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:162
  * @route '/clinic/appointments/{appointment}'
  */
-        showForm.head = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -320,7 +320,7 @@ show.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-export const edit = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -335,7 +335,7 @@ edit.definition = {
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-edit.url = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { appointment: args }
     }
@@ -368,7 +368,7 @@ edit.url = (args: { appointment: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-edit.get = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -377,7 +377,7 @@ edit.get = (args: { appointment: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-edit.head = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -387,7 +387,7 @@ edit.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-    const editForm = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -397,7 +397,7 @@ edit.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-        editForm.get = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -406,7 +406,7 @@ edit.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:175
  * @route '/clinic/appointments/{appointment}/edit'
  */
-        editForm.head = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -422,7 +422,7 @@ edit.head = (args: { appointment: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:199
  * @route '/clinic/appointments/{appointment}'
  */
-export const update = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -437,7 +437,7 @@ update.definition = {
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:199
  * @route '/clinic/appointments/{appointment}'
  */
-update.url = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { appointment: args }
     }
@@ -470,7 +470,7 @@ update.url = (args: { appointment: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:199
  * @route '/clinic/appointments/{appointment}'
  */
-update.put = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -480,7 +480,7 @@ update.put = (args: { appointment: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:199
  * @route '/clinic/appointments/{appointment}'
  */
-    const updateForm = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -495,7 +495,7 @@ update.put = (args: { appointment: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Clinic/Appointment/AppointmentController.php:199
  * @route '/clinic/appointments/{appointment}'
  */
-        updateForm.put = (args: { appointment: string | number | { id: string | number } } | [appointment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { appointment: number | { id: number } } | [appointment: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',

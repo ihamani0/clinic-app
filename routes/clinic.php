@@ -7,6 +7,7 @@ use App\Http\Controllers\Clinic\Patient\PatientMediaController;
 use App\Http\Controllers\Clinic\Patient\PatientPaymentController;
 use App\Http\Controllers\Clinic\Patient\PatientToothController;
 use App\Http\Controllers\Clinic\Patient\TreatmentController;
+use App\Http\Controllers\Clinic\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -116,6 +117,13 @@ Route::middleware(['auth', 'verified'])->prefix('clinic')->name('clinic.')->grou
             ->name('patient.finances.payments.store');
 
  
+
+
+    // Users 
+
+    Route::resource('/users' , UserController::class);
+    Route::put('/users/toggle-status/{user}' , [UserController::class , "toggle_status"])
+        ->name('users.toggle_status');
 
 
 });

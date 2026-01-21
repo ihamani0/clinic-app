@@ -13,7 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Archive, Calendar, CalendarDays, CalendarPlus, LayoutGrid,  Users } from 'lucide-react';
+import { Archive, Calendar, CalendarDays, CalendarPlus, LayoutGrid,  UserCog,  Users } from 'lucide-react';
 import AppLogo from './app-logo';
 import clinic from '@/routes/clinic';
 
@@ -63,6 +63,14 @@ const PatientsNavItems: NavItem[] = [
 ];
 
 
+const UsersNavItems: NavItem[] = [
+    {
+        title: 'User Mangments',
+        href: clinic.users.index().url,
+        icon: UserCog,
+    }
+];
+
 
 export function AppSidebar() {
     return (
@@ -87,6 +95,10 @@ export function AppSidebar() {
 
                 <NavMain items={PatientsNavItems} titleNav='Patients' />
 
+
+                <NavMain items={UsersNavItems} titleNav='Users' />
+
+    
 
             </SidebarContent>
 

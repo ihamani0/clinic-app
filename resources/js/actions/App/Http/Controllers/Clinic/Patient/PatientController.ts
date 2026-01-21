@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-export const show = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ show.definition = {
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-show.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -263,7 +263,7 @@ show.url = (args: { patient: string | number | { id: string | number } } | [pati
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-show.get = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ show.get = (args: { patient: string | number | { id: string | number } } | [pati
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-show.head = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ show.head = (args: { patient: string | number | { id: string | number } } | [pat
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-    const showForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ show.head = (args: { patient: string | number | { id: string | number } } | [pat
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-        showForm.get = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ show.head = (args: { patient: string | number | { id: string | number } } | [pat
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:79
  * @route '/clinic/patient/{patient}'
  */
-        showForm.head = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -521,7 +521,7 @@ update.patch = (args: { patient: string | number } | [patient: string | number ]
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
  * @route '/clinic/patient/{patient}'
  */
-export const destroy = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -536,7 +536,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
  * @route '/clinic/patient/{patient}'
  */
-destroy.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -569,7 +569,7 @@ destroy.url = (args: { patient: string | number | { id: string | number } } | [p
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
  * @route '/clinic/patient/{patient}'
  */
-destroy.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -579,7 +579,7 @@ destroy.delete = (args: { patient: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
  * @route '/clinic/patient/{patient}'
  */
-    const destroyForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -594,7 +594,7 @@ destroy.delete = (args: { patient: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:222
  * @route '/clinic/patient/{patient}'
  */
-        destroyForm.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',
@@ -688,7 +688,7 @@ archive_index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => (
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
  * @route '/clinic/archive/patient/restore/{patient}'
  */
-export const archive_restore = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const archive_restore = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: archive_restore.url(args, options),
     method: 'post',
 })
@@ -703,7 +703,7 @@ archive_restore.definition = {
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
  * @route '/clinic/archive/patient/restore/{patient}'
  */
-archive_restore.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+archive_restore.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -736,7 +736,7 @@ archive_restore.url = (args: { patient: string | number | { id: string | number 
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
  * @route '/clinic/archive/patient/restore/{patient}'
  */
-archive_restore.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+archive_restore.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: archive_restore.url(args, options),
     method: 'post',
 })
@@ -746,7 +746,7 @@ archive_restore.post = (args: { patient: string | number | { id: string | number
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
  * @route '/clinic/archive/patient/restore/{patient}'
  */
-    const archive_restoreForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const archive_restoreForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: archive_restore.url(args, options),
         method: 'post',
     })
@@ -756,7 +756,7 @@ archive_restore.post = (args: { patient: string | number | { id: string | number
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:261
  * @route '/clinic/archive/patient/restore/{patient}'
  */
-        archive_restoreForm.post = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        archive_restoreForm.post = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: archive_restore.url(args, options),
             method: 'post',
         })
@@ -767,7 +767,7 @@ archive_restore.post = (args: { patient: string | number | { id: string | number
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
  * @route '/clinic/archive/patient/force-delete/{patient}'
  */
-export const forceDelete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const forceDelete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: forceDelete.url(args, options),
     method: 'delete',
 })
@@ -782,7 +782,7 @@ forceDelete.definition = {
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
  * @route '/clinic/archive/patient/force-delete/{patient}'
  */
-forceDelete.url = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+forceDelete.url = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { patient: args }
     }
@@ -815,7 +815,7 @@ forceDelete.url = (args: { patient: string | number | { id: string | number } } 
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
  * @route '/clinic/archive/patient/force-delete/{patient}'
  */
-forceDelete.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+forceDelete.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: forceDelete.url(args, options),
     method: 'delete',
 })
@@ -825,7 +825,7 @@ forceDelete.delete = (args: { patient: string | number | { id: string | number }
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
  * @route '/clinic/archive/patient/force-delete/{patient}'
  */
-    const forceDeleteForm = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const forceDeleteForm = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: forceDelete.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -840,7 +840,7 @@ forceDelete.delete = (args: { patient: string | number | { id: string | number }
  * @see app/Http/Controllers/Clinic/Patient/PatientController.php:272
  * @route '/clinic/archive/patient/force-delete/{patient}'
  */
-        forceDeleteForm.delete = (args: { patient: string | number | { id: string | number } } | [patient: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        forceDeleteForm.delete = (args: { patient: number | { id: number } } | [patient: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: forceDelete.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

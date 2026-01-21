@@ -1,0 +1,699 @@
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: index.url(options),
+    method: 'get',
+})
+
+index.definition = {
+    methods: ["get","head"],
+    url: '/clinic/users',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+index.url = (options?: RouteQueryOptions) => {
+    return index.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: index.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: index.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: index.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::index
+ * @see app/Http/Controllers/Clinic/User/UserController.php:21
+ * @route '/clinic/users'
+ */
+        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    index.form = indexForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: create.url(options),
+    method: 'get',
+})
+
+create.definition = {
+    methods: ["get","head"],
+    url: '/clinic/users/create',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+create.url = (options?: RouteQueryOptions) => {
+    return create.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: create.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: create.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+    const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: create.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+        createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: create.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::create
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/create'
+ */
+        createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: create.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    create.form = createForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::store
+ * @see app/Http/Controllers/Clinic/User/UserController.php:34
+ * @route '/clinic/users'
+ */
+export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
+
+store.definition = {
+    methods: ["post"],
+    url: '/clinic/users',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::store
+ * @see app/Http/Controllers/Clinic/User/UserController.php:34
+ * @route '/clinic/users'
+ */
+store.url = (options?: RouteQueryOptions) => {
+    return store.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::store
+ * @see app/Http/Controllers/Clinic/User/UserController.php:34
+ * @route '/clinic/users'
+ */
+store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::store
+ * @see app/Http/Controllers/Clinic/User/UserController.php:34
+ * @route '/clinic/users'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::store
+ * @see app/Http/Controllers/Clinic/User/UserController.php:34
+ * @route '/clinic/users'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+export const show = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: show.url(args, options),
+    method: 'get',
+})
+
+show.definition = {
+    methods: ["get","head"],
+    url: '/clinic/users/{user}',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+show.url = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { user: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    user: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        user: args.user,
+                }
+
+    return show.definition.url
+            .replace('{user}', parsedArgs.user.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+show.get = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: show.url(args, options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+show.head = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: show.url(args, options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+    const showForm = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+        showForm.get = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::show
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}'
+ */
+        showForm.head = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+export const edit = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: edit.url(args, options),
+    method: 'get',
+})
+
+edit.definition = {
+    methods: ["get","head"],
+    url: '/clinic/users/{user}/edit',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+edit.url = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { user: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    user: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        user: args.user,
+                }
+
+    return edit.definition.url
+            .replace('{user}', parsedArgs.user.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+edit.get = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: edit.url(args, options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+edit.head = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: edit.url(args, options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+    const editForm = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+        editForm.get = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::edit
+ * @see app/Http/Controllers/Clinic/User/UserController.php:0
+ * @route '/clinic/users/{user}/edit'
+ */
+        editForm.head = (args: { user: string | number } | [user: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+export const update = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update.url(args, options),
+    method: 'put',
+})
+
+update.definition = {
+    methods: ["put","patch"],
+    url: '/clinic/users/{user}',
+} satisfies RouteDefinition<["put","patch"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+update.url = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { user: args }
+    }
+
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { user: args.id }
+        }
+    
+    if (Array.isArray(args)) {
+        args = {
+                    user: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        user: typeof args.user === 'object'
+                ? args.user.id
+                : args.user,
+                }
+
+    return update.definition.url
+            .replace('{user}', parsedArgs.user.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+update.put = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update.url(args, options),
+    method: 'put',
+})
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+update.patch = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: update.url(args, options),
+    method: 'patch',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+    const updateForm = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+        updateForm.put = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::update
+ * @see app/Http/Controllers/Clinic/User/UserController.php:54
+ * @route '/clinic/users/{user}'
+ */
+        updateForm.patch = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PATCH',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::destroy
+ * @see app/Http/Controllers/Clinic/User/UserController.php:72
+ * @route '/clinic/users/{user}'
+ */
+export const destroy = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy.url(args, options),
+    method: 'delete',
+})
+
+destroy.definition = {
+    methods: ["delete"],
+    url: '/clinic/users/{user}',
+} satisfies RouteDefinition<["delete"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::destroy
+ * @see app/Http/Controllers/Clinic/User/UserController.php:72
+ * @route '/clinic/users/{user}'
+ */
+destroy.url = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { user: args }
+    }
+
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { user: args.id }
+        }
+    
+    if (Array.isArray(args)) {
+        args = {
+                    user: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        user: typeof args.user === 'object'
+                ? args.user.id
+                : args.user,
+                }
+
+    return destroy.definition.url
+            .replace('{user}', parsedArgs.user.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::destroy
+ * @see app/Http/Controllers/Clinic/User/UserController.php:72
+ * @route '/clinic/users/{user}'
+ */
+destroy.delete = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy.url(args, options),
+    method: 'delete',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::destroy
+ * @see app/Http/Controllers/Clinic/User/UserController.php:72
+ * @route '/clinic/users/{user}'
+ */
+    const destroyForm = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::destroy
+ * @see app/Http/Controllers/Clinic/User/UserController.php:72
+ * @route '/clinic/users/{user}'
+ */
+        destroyForm.delete = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy.form = destroyForm
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::toggle_status
+ * @see app/Http/Controllers/Clinic/User/UserController.php:79
+ * @route '/clinic/users/toggle-status/{user}'
+ */
+export const toggle_status = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: toggle_status.url(args, options),
+    method: 'put',
+})
+
+toggle_status.definition = {
+    methods: ["put"],
+    url: '/clinic/users/toggle-status/{user}',
+} satisfies RouteDefinition<["put"]>
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::toggle_status
+ * @see app/Http/Controllers/Clinic/User/UserController.php:79
+ * @route '/clinic/users/toggle-status/{user}'
+ */
+toggle_status.url = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { user: args }
+    }
+
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { user: args.id }
+        }
+    
+    if (Array.isArray(args)) {
+        args = {
+                    user: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        user: typeof args.user === 'object'
+                ? args.user.id
+                : args.user,
+                }
+
+    return toggle_status.definition.url
+            .replace('{user}', parsedArgs.user.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Clinic\User\UserController::toggle_status
+ * @see app/Http/Controllers/Clinic/User/UserController.php:79
+ * @route '/clinic/users/toggle-status/{user}'
+ */
+toggle_status.put = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: toggle_status.url(args, options),
+    method: 'put',
+})
+
+    /**
+* @see \App\Http\Controllers\Clinic\User\UserController::toggle_status
+ * @see app/Http/Controllers/Clinic/User/UserController.php:79
+ * @route '/clinic/users/toggle-status/{user}'
+ */
+    const toggle_statusForm = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: toggle_status.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Clinic\User\UserController::toggle_status
+ * @see app/Http/Controllers/Clinic/User/UserController.php:79
+ * @route '/clinic/users/toggle-status/{user}'
+ */
+        toggle_statusForm.put = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: toggle_status.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    toggle_status.form = toggle_statusForm
+const UserController = { index, create, store, show, edit, update, destroy, toggle_status }
+
+export default UserController
